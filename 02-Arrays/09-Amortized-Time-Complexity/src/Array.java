@@ -122,7 +122,7 @@ public class Array<E> {
     // 时间复杂度: O(n)
     //   no resize: O(1)
     //   resize: O(n)
-    // 均摊复杂度: O(1)
+    // 均摊复杂度: O(((n + (n + 1)) / n) = (2 + 1/n)) = O(2) = O(1)
     public void addLast(E e) {
         add(size, e);
     }
@@ -180,6 +180,7 @@ public class Array<E> {
     // 时间复杂度: O(n)
     //   no resize: O(1)
     //   resize: O(n)
+    // 均摊复杂度: O(((n + (n + 1)) / n) = (2 + 1/n)) = O(2) = O(1)
     public E removeLast() {
         return remove(size - 1);
     }

@@ -42,6 +42,16 @@ public class Array<E> {
         return data[index];
     }
 
+    // 获取第一个元素
+    public E getFirst() {
+        return get(0);
+    }
+
+    // 获取最后一个元素
+    public E getLast() {
+        return get(size - 1);
+    }
+
     // 修改 index 索引位置的元素为 e
     // 时间复杂度: O(n)
     public void set(int index, E e) {

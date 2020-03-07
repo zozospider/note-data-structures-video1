@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class Array {
 
     // 用于存放 int 元素的数组
@@ -31,6 +29,26 @@ public class Array {
     // 返回数组是否为空
     public boolean isEmpty() {
         return size == 0;
+    }
+
+    // 获取 index 索引位置的元素
+    public int get(int index) {
+
+        // 如果要获取的索引位置小于 0, 或者大于等于当前 size 索引位置 (即所有元素最后位置), 则认为是非法操作, 抛出异常
+        if (index < 0 || index >= size) {
+            throw new IllegalArgumentException("Get failed. Index is illegal.");
+        }
+        return data[index];
+    }
+
+    // 修改 index 索引位置的元素为 e
+    public void set(int index, int e) {
+
+        // 如果要插入的索引位置小于 0, 或者大于等于当前 size 索引位置 (即所有元素最后位置), 则认为是非法操作, 抛出异常
+        if (index < 0 || index >= size) {
+            throw new IllegalArgumentException("Get failed. Index is illegal.");
+        }
+        data[index] = e;
     }
 
     // 向所有元素后添加一个新元素 (直接实现方式)

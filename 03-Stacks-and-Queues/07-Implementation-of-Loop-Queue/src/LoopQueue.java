@@ -96,7 +96,13 @@ public class LoopQueue<E> implements Queue<E> {
 
     @Override
     public E getFront() {
-        return null;
+
+        // 不能从空数组取出元素
+        if (isEmpty()) {
+            throw new IllegalArgumentException("Can not dequeue from an empty queue.");
+        }
+
+        return data[front];
     }
 
     // 将数组的容量变成 newCapacity 大小
@@ -131,6 +137,31 @@ public class LoopQueue<E> implements Queue<E> {
         // 因此 front = 0, tail = size
         front = 0;
         tail = size;
+    }
+
+    @Override
+    public String toString() {
+
+        StringBuilder builder = new StringBuilder();
+        builder.append(String.format("LoopQueue: {size = %d, capacity = %d, front = %d, tail = %d, ", size, getCapacity(), front, tail));
+
+        builder.append("front [");
+        for (int i = 0; i < size; i++) {
+            builder.append(data[(front + i) % data.length]);
+            if ((front + i) % data.length != (tail - 1)) {
+                builder.append(", ");
+            }
+        }
+        builder.append("] tail");
+
+        return builder.toString();
+
+        /*return "LoopQueue{" +
+                "data=" + Arrays.toString(data) +
+                ", front=" + front +
+                ", tail=" + tail +
+                ", size=" + size +
+                '}';*/
     }
 
 }

@@ -1,5 +1,3 @@
-import com.sun.javafx.binding.StringFormatter;
-
 public class ArrayQueue<E> implements Queue<E> {
 
     // 内部用动态数组存储数据
@@ -13,26 +11,31 @@ public class ArrayQueue<E> implements Queue<E> {
         array = new Array<>();
     }
 
+    // 时间复杂度: O(1)
     @Override
     public int getSize() {
         return array.getSize();
     }
 
+    // 时间复杂度: O(1)
     @Override
     public boolean isEmpty() {
         return array.isEmpty();
     }
 
+    // 均摊复杂度: O(1)
     @Override
     public void enqueue(E e) {
         array.addLast(e);
     }
 
+    // 时间复杂度: O(n)
     @Override
     public E dequeue() {
         return array.removeFirst();
     }
 
+    // 时间复杂度: O(1)
     @Override
     public E getFront() {
         return array.getFirst();

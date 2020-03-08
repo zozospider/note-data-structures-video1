@@ -84,7 +84,7 @@ public class Array {
     // 向所有元素后添加一个新元素 (直接实现方式)
     public void addLast_v0(int e) {
 
-        // 如果数组中的元素个数等于数组的容量, 说明数组已经满了, 抛出异常
+        // 如果数组中的元素个数等于数组长度, 说明数组已经满了, 抛出异常
         if (size == data.length) {
             throw new IllegalArgumentException("AddLast failed. Array is full.");
         }
@@ -99,7 +99,7 @@ public class Array {
     // 在 index 索引位置插入一个新元素 e
     public void add(int index, int e) {
 
-        // 如果数组中的元素个数等于数组的容量, 说明数组已经满了, 抛出异常
+        // 如果数组中的元素个数等于数组长度, 说明数组已经满了, 抛出异常
         if (size == data.length) {
             throw new IllegalArgumentException("AddLast failed. Array is full.");
         }

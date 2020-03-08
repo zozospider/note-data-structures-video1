@@ -92,7 +92,7 @@ public class Array<E> {
     // 向所有元素后添加一个新元素 (直接实现方式)
     public void addLast_v0(E e) {
 
-        // 如果数组中的元素个数等于数组的容量, 说明数组已经满了, 抛出异常
+        // 如果数组中的元素个数等于数组长度, 说明数组已经满了, 抛出异常
         if (size == data.length) {
             throw new IllegalArgumentException("AddLast failed. Array is full.");
         }
@@ -115,7 +115,7 @@ public class Array<E> {
             throw new IllegalArgumentException("Add failed. Require index >= 0 and index <= size.");
         }
 
-        // 如果数组中的元素个数等于数组的容量, 说明数组已经满了, 将数组的容量扩容为原来的 2 倍
+        // 如果数组中的元素个数等于数组长度, 说明数组已经满了, 将数组的容量扩容为原来的 2 倍
         if (size == data.length) {
             resize(2 * data.length);
         }
@@ -169,11 +169,11 @@ public class Array<E> {
         // 元素个数减 1
         size--;
 
-        // 释放 size 索引位置的元素 (loitering objects) 的内存
+        // 释放 size 索引位置的元素 (loitering objects) 的引用
         // loitering objects != memory leak
         data[size] = null;
 
-        // 如果数组中的元素个数等于数组的容量的 1/4, 说明数组比较空闲, 将数组的容量缩容为原来的 1/2
+        // 如果数组中的元素个数等于数组长度的 1/4, 说明数组比较空闲, 将数组的容量缩容为原来的 1/2
         // 此处用到 lazy 机制, 即等到剩余 1/4 空间的时候才缩容到 1/2, 防止复杂度的震荡
         // 增加 (data.length / 2 != 0) 的条件判断用于防止当 (data.length == 1) 时 (newCapacity = 1 / 2 = 0) 的情况
         if (size == data.length / 4

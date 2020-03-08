@@ -84,7 +84,7 @@ public class Array<E> {
     // 向所有元素后添加一个新元素 (直接实现方式)
     public void addLast_v0(E e) {
 
-        // 如果数组中的元素个数等于数组的容量, 说明数组已经满了, 抛出异常
+        // 如果数组中的元素个数等于数组长度, 说明数组已经满了, 抛出异常
         if (size == data.length) {
             throw new IllegalArgumentException("AddLast failed. Array is full.");
         }
@@ -150,11 +150,11 @@ public class Array<E> {
         // 元素个数减 1
         size--;
 
-        // 释放 size 索引位置的元素 (loitering objects) 的内存
+        // 释放 size 索引位置的元素 (loitering objects) 的引用
         // loitering objects != memory leak
         data[size] = null;
 
-        // 如果数组中的元素个数等于数组的容量的一半, 说明数组比较空闲, 将数组的容量缩容为原来的 1/2
+        // 如果数组中的元素个数等于数组长度的一半, 说明数组比较空闲, 将数组的容量缩容为原来的 1/2
         if (size == data.length / 2) {
             resize(data.length / 2);
         }

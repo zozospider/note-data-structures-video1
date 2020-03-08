@@ -17,6 +17,7 @@ public class Array<E> {
     }
 
     // 获取数组中的元素个数
+    // 时间复杂度: O(1)
     public int getSize() {
         return size;
     }
@@ -27,6 +28,7 @@ public class Array<E> {
     }
 
     // 返回数组是否为空
+    // 时间复杂度: O(1)
     public boolean isEmpty() {
         return size == 0;
     }
@@ -43,11 +45,13 @@ public class Array<E> {
     }
 
     // 获取第一个元素
+    // 时间复杂度: O(1)
     public E getFirst() {
         return get(0);
     }
 
     // 获取最后一个元素
+    // 时间复杂度: O(1)
     public E getLast() {
         return get(size - 1);
     }

@@ -9,7 +9,7 @@ public interface Stack<E> {
     // 将元素压入栈顶
     void push(E e);
 
-    // 获取并删除栈顶元素
+    // 取出栈顶元素
     E pop();
 
     // 查看栈顶元素

@@ -22,16 +22,19 @@ public class LoopQueue<E> implements Queue<E> {
         return data.length - 1;
     }
 
+    // 时间复杂度: O(1)
     @Override
     public int getSize() {
         return size;
     }
 
+    // 时间复杂度: O(1)
     @Override
     public boolean isEmpty() {
         return front == tail;
     }
 
+    // 均摊复杂度: O(1)
     @Override
     public void enqueue(E e) {
 
@@ -61,6 +64,7 @@ public class LoopQueue<E> implements Queue<E> {
         size++;
     }
 
+    // 均摊复杂度: O(1)
     @Override
     public E dequeue() {
 
@@ -94,6 +98,7 @@ public class LoopQueue<E> implements Queue<E> {
         return e;
     }
 
+    // 时间复杂度: O(1)
     @Override
     public E getFront() {
 

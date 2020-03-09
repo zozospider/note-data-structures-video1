@@ -71,6 +71,8 @@ public class LinkedList<E> {
         size++;
     }
 
+    // 在链表的 index(0-based) 位置添加新的元素 e
+    // 注: 因链表本身的结构特性不适合在随机位置插入, 此方法在链表中不是一个常用的操作, 练习用
     public void add(int index, E e) {
 
         // 如果要插入的索引位置小于 0, 或者大于当前 size 索引位置 (即所有元素最后位置之后), 则认为是非法操作, 抛出异常

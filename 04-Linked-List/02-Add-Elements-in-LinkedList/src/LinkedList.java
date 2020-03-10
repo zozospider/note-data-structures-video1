@@ -14,14 +14,6 @@ public class LinkedList<E> {
             this.next = next;
         }
 
-        Node(E e) {
-            this(e, null);
-        }
-
-        Node() {
-            this(null, null);
-        }
-
         @Override
         public String toString() {
             return "Node{" +
@@ -85,7 +77,7 @@ public class LinkedList<E> {
             addFirst(e);
         } else {
 
-            // 记录要插入的 index 节点的前一个节点
+            // 记录要插入的 index 节点的前一个节点 (从头部节点开始算第一个)
             Node prev = head;
 
             // 从头部节点开始, 通过节点的 next 引用, 依次找下一个节点, 直到找到 index 前一个元素的引用: prev Node = (index - 1) Node = (index - 2).next Node

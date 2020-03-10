@@ -54,7 +54,8 @@ public class LinkedList<E> {
             throw new IllegalArgumentException("Add failed. Index is illegal.");
         }
 
-        // 记录要插入的 index 节点的前一个节点 (从虚拟头节点开始算第一个)
+        // 最终得到要插入的 index 节点的前一个节点 (从虚拟头节点开始算第一个)
+        // 也可以理解成用于记录某个索引的前一个节点 (从头部节点的前一个节点开始)
         Node prev = dummyHead;
 
         // 从虚拟头节点开始, 通过节点的 next 引用, 依次找下一个节点, 直到找到 index 前一个元素的引用: prev Node = (index - 1) Node = (index - 2).next Node

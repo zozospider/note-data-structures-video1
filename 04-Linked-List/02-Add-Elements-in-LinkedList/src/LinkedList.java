@@ -86,24 +86,24 @@ public class LinkedList<E> {
         } else {
 
             // 记录要插入的 index 节点的前一个节点
-            Node pre = head;
+            Node prev = head;
 
-            // 从头部节点开始, 通过节点的 next 引用, 依次找下一个节点, 直到找到 index 前一个元素的引用: pre Node = (index - 1) Node = (index - 2).next Node
+            // 从头部节点开始, 通过节点的 next 引用, 依次找下一个节点, 直到找到 index 前一个元素的引用: prev Node = (index - 1) Node = (index - 2).next Node
             for (int i = 0; i < index - 1; i++) {
-                pre = pre.next;
+                prev = prev.next;
             }
 
             // 1. 创建数据为 e 的节点
             // Node node = new Node(e);
-            // 2. 设置当前创建的节点的下一个节点的引用为 pre Node (index 前一个元素的引用) 的下一个节点的引用 pre.next Node
-            // node.next = pre.next;
-            // 3. 将 pre.next 的头部节点的引用设置为当前创建的节点, 即表示当前创建的节点为 pre Node 的下一个节点
-            // pre.next = node;
+            // 2. 设置当前创建的节点的下一个节点的引用为 prev Node (index 前一个元素的引用) 的下一个节点的引用 prev.next Node
+            // node.next = prev.next;
+            // 3. 将 prev.next 的头部节点的引用设置为当前创建的节点, 即表示当前创建的节点为 prev Node 的下一个节点
+            // prev.next = node;
 
             // 等效于上面 3 个步骤
-            // new Node(e, pre.next); 等效于步骤 1, 2
-            // pre.next = new Node(e, pre.next); 等效于步骤 3
-            pre.next = new Node(e, pre.next);
+            // new Node(e, prev.next); 等效于步骤 1, 2
+            // prev.next = new Node(e, prev.next); 等效于步骤 3
+            prev.next = new Node(e, prev.next);
 
             // 元素个数加 1
             size++;

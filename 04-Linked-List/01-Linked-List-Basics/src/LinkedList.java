@@ -3,7 +3,7 @@ public class LinkedList<E> {
     // 链表中的节点 (设置为 private 是为了屏蔽外部访问)
     private class Node {
 
-        // 元素
+        // 元素值
         E e;
 
         // 下一个节点的引用
@@ -16,10 +16,14 @@ public class LinkedList<E> {
 
         @Override
         public String toString() {
-            return "Node{" +
+            return e.toString();
+            /*return "Node{" +
+                    "e=" + e +
+                    "}";*/
+            /*return "Node{" +
                     "e=" + e +
                     ", next=" + next +
-                    '}';
+                    '}';*/
         }
     }
 

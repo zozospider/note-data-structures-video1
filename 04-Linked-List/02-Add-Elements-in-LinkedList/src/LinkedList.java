@@ -3,7 +3,7 @@ public class LinkedList<E> {
     // 链表中的节点 (设置为 private 是为了屏蔽外部访问)
     private class Node {
 
-        // 元素
+        // 元素值
         E e;
 
         // 下一个节点的引用
@@ -16,10 +16,14 @@ public class LinkedList<E> {
 
         @Override
         public String toString() {
-            return "Node{" +
+            return e.toString();
+            /*return "Node{" +
+                    "e=" + e +
+                    "}";*/
+            /*return "Node{" +
                     "e=" + e +
                     ", next=" + next +
-                    '}';
+                    '}';*/
         }
     }
 
@@ -81,14 +85,14 @@ public class LinkedList<E> {
             // 也可以理解成用于记录某个索引的前一个节点 (从第二个节点的前一个节点开始)
             Node prev = head;
 
-            // 从头部节点开始, 通过节点的 next 引用, 依次找下一个节点, 直到找到 index 前一个元素的引用: prev Node = (index - 1) Node = (index - 2).next Node
+            // 从头部节点开始, 通过节点的 next 引用, 依次找下一个节点, 直到找到 index 前一个节点的引用: prev Node = (index - 1) Node = (index - 2).next Node
             for (int i = 0; i < index - 1; i++) {
                 prev = prev.next;
             }
 
             // 1. 创建数据为 e 的节点
             // Node node = new Node(e);
-            // 2. 设置当前创建的节点的下一个节点的引用为 prev Node (index 前一个元素的引用) 的下一个节点的引用 prev.next Node
+            // 2. 设置当前创建的节点的下一个节点的引用为 prev Node (index 前一个节点的引用) 的下一个节点的引用 prev.next Node
             // node.next = prev.next;
             // 3. 将 prev.next 的头部节点的引用设置为当前创建的节点, 即表示当前创建的节点为 prev Node 的下一个节点
             // prev.next = node;

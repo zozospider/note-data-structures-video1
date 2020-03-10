@@ -22,6 +22,17 @@ public class Main {
 
         System.out.println(linkedList.contains(666));
         System.out.println(linkedList.contains(999));
+
+        System.out.println("------");
+
+        linkedList.remove(2);
+        System.out.println(linkedList);
+
+        linkedList.removeFirst();
+        System.out.println(linkedList);
+
+        linkedList.removeLast();
+        System.out.println(linkedList);
     }
 
 }

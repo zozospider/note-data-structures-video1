@@ -18,6 +18,17 @@ public class Main {
         Queue<Integer> loopQueue = new LoopQueue<>();
         long loopTime = testQueue(loopQueue, count);
         System.out.println("LoopQueue time: " + loopTime + "ms");
+
+        // 时间复杂度:
+        // enqueue: O(1), dequeue: O(1)
+        Queue<Integer> linkedListQueue = new LinkedListQueue<>();
+        long linkedListTime = testQueue(linkedListQueue, count);
+        System.out.println("LinkedListQueue time: " + linkedListTime + "ms");
+
+        // 以上 LoopQueue 和 LinkedListQueue 两个时间比较很复杂, 两者的时间复杂度都是 O(1), 具体差异包括:
+        // LoopQueue: 包含数组拷贝操作
+        // LinkedListQueue: 包含 new Node 对象操作
+        // 所以在不同硬件, 操作系统, JVM 版本, count 值等因素下, 两者的表现都可能不一样
     }
 
     // 测试使用 queue 运行 count 个 enqueue 和 dequeue 操作所需要的时间, 单位: 毫秒

@@ -1,7 +1,12 @@
 public class LinkedListQueue<E> implements Queue<E> {
 
+    // 链表中的节点 (设置为 private 是为了屏蔽外部访问)
     private class Node {
+
+        // 元素值
         E e;
+
+        // 下一个节点的引用
         Node next;
 
         Node(E e, Node next) {
@@ -36,16 +41,19 @@ public class LinkedListQueue<E> implements Queue<E> {
         size = 0;
     }
 
+    // 时间复杂度: O(1)
     @Override
     public int getSize() {
         return size;
     }
 
+    // 时间复杂度: O(1)
     @Override
     public boolean isEmpty() {
         return size == 0;
     }
 
+    // 时间复杂度: O(1)
     @Override
     public void enqueue(E e) {
 
@@ -71,6 +79,7 @@ public class LinkedListQueue<E> implements Queue<E> {
         size++;
     }
 
+    // 时间复杂度: O(1)
     @Override
     public E dequeue() {
 
@@ -99,6 +108,7 @@ public class LinkedListQueue<E> implements Queue<E> {
         return headNode.e;
     }
 
+    // 时间复杂度: O(1)
     @Override
     public E getFront() {
 
@@ -123,7 +133,7 @@ public class LinkedListQueue<E> implements Queue<E> {
         builder.append("data = front [");
         Node current = head;
         while (current != null) {
-            builder.append(current + " -> ");
+            builder.append(current).append(" -> ");
             current = current.next;
         }
         builder.append(" NULL] tail");

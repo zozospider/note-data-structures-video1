@@ -14,8 +14,8 @@ public class Solution3 {
         while (prev.next != null) {
 
             // 只有在当前操作节点的值不等于 val 的时候, 才需要将 prev 引用进行移动, 否则需要再次判断 prev 引用的下一个节点是否需要继续删除 (不能修改 prev 引用)
-            // 如 [5 -> 6 -> 7]      链表中删除 6 的 prev 引用的索引变化为: prev(-1) [else 逻辑修改 prev 引用] -> prev(1) [if 逻辑执行删除] -> prev(2) [else 逻辑修改 prev 引用] -> [结束循环]
-            // 如 [5 -> 6 -> 6 -> 7] 链表中删除 6 的 prev 引用的索引变化为: prev(-1) [else 逻辑修改 prev 引用] -> prev(1) [if 逻辑执行删除] -> prev(1) [if 逻辑执行删除] -> prev(2) [else 逻辑修改 prev 引用] -> [结束循环]
+            // 如 [5 -> 6 -> 7]      链表中删除 6 的 prev 引用的索引变化为: prev(-1) [else 逻辑修改 prev 引用] -> prev(1) [if 逻辑删除节点] -> prev(2) [else 逻辑修改 prev 引用] -> [结束循环]
+            // 如 [5 -> 6 -> 6 -> 7] 链表中删除 6 的 prev 引用的索引变化为: prev(-1) [else 逻辑修改 prev 引用] -> prev(1) [if 逻辑删除节点] -> prev(1) [if 逻辑删除节点] -> prev(2) [else 逻辑修改 prev 引用] -> [结束循环]
 
             if (prev.next.val == val) {
                 // 如果当前节点的值等于 val, 需要将当前节点删除

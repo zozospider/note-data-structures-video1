@@ -13,7 +13,7 @@ public class Solution3 {
         // 判断当前节点是否为 null, 如果为 null, 表示已遍历完所有节点
         while (prev.next != null) {
 
-            // 只有在当前操作节点的值不等于 val 的时候, 才需要将 prev 引用进行移动, 否则需要再次判断 prev 引用的下一个节点是否需要继续删除 (不能移动 prev 引用)
+            // 只有在当前操作节点的值不等于 val 的时候, 才需要将 prev 引用进行移动, 否则需要再次判断 prev 引用的下一个节点是否需要继续删除 (不能修改 prev 引用)
             // 如 [1 -> 3 -> 5]      链表中删除 3 的 prev 的引用变化为: prev(-1) [else 逻辑修改 prev 引用] -> prev(1) [if 逻辑执行删除] -> prev(5) [else 逻辑修改 prev 引用]
             // 如 [1 -> 3 -> 3 -> 5] 链表中删除 3 的 prev 的引用变化为: prev(-1) [else 逻辑修改 prev 引用] -> prev(1) [if 逻辑执行删除] -> prev(1) [if 逻辑执行删除] -> prev(5) [else 逻辑修改 prev 引用]
 

@@ -20,13 +20,13 @@ public class Solution3 {
             if (prev.next.val == val) {
                 // 如果当前节点的值等于 val, 需要将当前节点删除
 
-                // 1. 考虑被删除节点的内存释放
-                // ListNode remove = prev.next;
-                // prev.next = remove.next;
-                // remove.next = null;
+                // a. 考虑被删除节点的内存释放
+                ListNode remove = prev.next;
+                prev.next = remove.next;
+                remove.next = null;
 
-                // 2 不考虑被删除节点的内存释放
-                prev.next = prev.next.next;
+                // b. 不考虑被删除节点的内存释放
+                // prev.next = prev.next.next;
 
             } else {
                 // 遍历下一个节点的前一个节点

@@ -9,8 +9,8 @@
 public class SolutionMain {
 
     public static void main(String[] args) {
-        main1();
-        // main2();
+        // main1();
+        main2();
     }
 
     // 1 -> 2 -> 6 -> 3 -> 4 -> 5 -> 6

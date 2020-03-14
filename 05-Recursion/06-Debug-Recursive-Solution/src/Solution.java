@@ -3,30 +3,33 @@ public class Solution {
     public ListNode removeElements(ListNode head, int val, int depth) {
 
         String depthString = toDepthString(depth);
-        System.out.print(depthString);
-        System.out.println("call removeElements: " + head);
+        System.out.println(depthString + "call removeElements     |" + head);
 
         if (head == null) {
-            System.out.println(depthString + "return null");
+            System.out.println(depthString + "return removeElements   |null (stop recursion)");
             return null;
         }
 
         ListNode behind = removeElements(head.next, val, depth + 1);
-        System.out.println(depthString + "after remove: " + head);
+        // System.out.println(call);
+        System.out.println(depthString + "get behind removeElements |" + behind);
 
         ListNode result;
         if (head.val == val) {
             result = behind;
+            System.out.println(depthString + "return removeElements     |" + result + " (drop " + val + ")");
         } else {
             head.next = behind;
             result = head;
+            System.out.println(depthString + "return removeElements     |" + result);
         }
-        System.out.println(depthString + "return: " + result);
+        // System.out.println(", return: " + result);
         return result;
     }
 
     private String toDepthString(int depth) {
         StringBuilder builder = new StringBuilder();
+        builder.append("deep ").append(depth).append(" ");
         for (int i = 0; i < depth; i++) {
             builder.append("- ");
         }

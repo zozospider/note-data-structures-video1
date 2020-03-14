@@ -33,7 +33,7 @@ public class ListNode {
             builder.append(current.val).append(" -> ");
             current = current.next;
         }
-        builder.append("NULL ] tail");
+        builder.append("NULL] tail");
         builder.append("}");
         return builder.toString();
     }

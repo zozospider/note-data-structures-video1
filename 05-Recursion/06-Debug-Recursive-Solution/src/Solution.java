@@ -11,7 +11,6 @@ public class Solution {
         }
 
         ListNode behind = removeElements(head.next, val, depth + 1);
-        // System.out.println(call);
         System.out.println(depthString + "get behind removeElements |" + behind);
 
         ListNode result;
@@ -23,7 +22,6 @@ public class Solution {
             result = head;
             System.out.println(depthString + "return removeElements     |" + result);
         }
-        // System.out.println(", return: " + result);
         return result;
     }
 

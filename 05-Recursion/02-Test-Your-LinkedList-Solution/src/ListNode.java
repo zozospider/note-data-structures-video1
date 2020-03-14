@@ -7,6 +7,7 @@ public class ListNode {
         val = x;
     }
 
+    // 使用 arr 为参数, 创建一个以当前 ListNode 为头结点的链表
     public ListNode(int[] arr) {
 
         if (arr == null || arr.length == 0) {
@@ -21,6 +22,7 @@ public class ListNode {
         }
     }
 
+    // 以当前节点为头结点的链表信息字符串
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

@@ -29,7 +29,7 @@ public class SolutionMain {
         ListNode one = new ListNode(1);
         one.next = two;
 
-        ListNode resultHead = new Solution3().removeElements(one, 6);
+        ListNode resultHead = new Solution2().removeElements(one, 6);
         System.out.println(resultHead);
     }
 
@@ -49,7 +49,7 @@ public class SolutionMain {
         ListNode one = new ListNode(6);
         one.next = two;
 
-        ListNode resultHead = new Solution3().removeElements(one, 6);
+        ListNode resultHead = new Solution2().removeElements(one, 6);
         System.out.println(resultHead);
     }
 

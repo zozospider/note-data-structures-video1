@@ -1,4 +1,4 @@
-public class Solution3 {
+public class Solution2 {
 
     public ListNode removeElements(ListNode head, int val) {
 

@@ -16,13 +16,8 @@ public class Main {
         // 2   4     8 //
         /////////////////
 
-        // 前序遍历
-        bst.preOrder();
-
-        System.out.println("------");
-
-        // 前序遍历 (非递归)
-        bst.preOrderNotRecursion();
+        // 层序遍历
+        bst.levelOrder();
     }
 
 }

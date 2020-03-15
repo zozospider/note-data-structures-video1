@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class BST<E extends Comparable<E>> {
@@ -153,6 +155,7 @@ public class BST<E extends Comparable<E>> {
     }
 
     // 二分搜索树的前序遍历 (非递归)
+    // 使用栈实现 (建议画图帮助理解各个步骤的执行顺序)
     public void preOrderNotRecursion() {
 
         // 空树不做处理
@@ -169,7 +172,7 @@ public class BST<E extends Comparable<E>> {
         // 循环处理栈中的节点 (从 root 开始, 依次出栈当前节点, 再入栈当前节点的右孩子, 左孩子)
         while (!stack.isEmpty()) {
 
-            // 循环内为当前节点的处理
+            // 循环内逻辑为对当前节点的处理
 
             // 将最近要访问的节点出栈
             Node current = stack.pop();
@@ -237,6 +240,43 @@ public class BST<E extends Comparable<E>> {
 
         // 访问当前节点 (后序)
         System.out.println(node.e);
+    }
+
+    // 二分搜索树的层序遍历 (广度优先遍历)
+    // 使用队列实现 (建议画图帮助理解各个步骤的执行顺序)
+    public void levelOrder() {
+
+        // 空树不做处理
+        if (root == null) {
+            return;
+        }
+
+        // 使用栈存储待访问的节点
+        Queue<Node> queue = new LinkedList<>();
+
+        // 首先将 root 入队
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+
+            // 循环内逻辑为对当前节点的处理
+
+            // 将最近要访问的节点出队
+            Node current = queue.remove();
+
+            // 访问当前节点
+            System.out.println(current.e);
+
+            // 如果左孩子不为 null, 则将左孩子入队
+            if (current.left != null) {
+                queue.add(current.left);
+            }
+
+            // 如果右孩子不为 null, 则将右孩子入队
+            if (current.right != null) {
+                queue.add(current.right);
+            }
+        }
     }
 
     @Override

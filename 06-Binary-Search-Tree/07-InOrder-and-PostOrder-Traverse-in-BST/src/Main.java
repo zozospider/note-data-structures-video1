@@ -21,7 +21,7 @@ public class Main {
 
         System.out.println("------");
 
-        // 中序遍历
+        // 中序遍历 (结果为顺序排列)
         bst.inOrder();
 
         System.out.println("------");

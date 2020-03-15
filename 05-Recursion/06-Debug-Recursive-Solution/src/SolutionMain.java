@@ -16,8 +16,8 @@ public class SolutionMain {
     // 1 -> 2 -> 6 -> 3 -> 4 -> 5 -> 6
     private static void main1() {
 
-        int[] nums = {1, 2, 6, 3, 4, 5, 6};
-        ListNode head = new ListNode(nums);
+        int[] numbers = {1, 2, 6, 3, 4, 5, 6};
+        ListNode head = new ListNode(numbers);
 
         ListNode resultHead = new Solution().removeElements(head, 6, 0);
         System.out.println(resultHead);
@@ -26,8 +26,8 @@ public class SolutionMain {
     // 6 -> 6 -> 1 -> 6 -> 6 -> 2 -> 6
     private static void main2() {
 
-        int[] nums = {6, 6, 1, 6, 6, 2, 6};
-        ListNode head = new ListNode(nums);
+        int[] numbers = {6, 6, 1, 6, 6, 2, 6};
+        ListNode head = new ListNode(numbers);
 
         ListNode resultHead = new Solution().removeElements(head, 6, 0);
         System.out.println(resultHead);

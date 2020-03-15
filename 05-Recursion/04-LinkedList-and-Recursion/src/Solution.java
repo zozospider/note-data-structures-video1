@@ -1,5 +1,6 @@
 public class Solution {
 
+    // 此方法的宏观语义 (重点关注):
     // 删除链表中等于 val 的节点, 返回删除后的链表的头节点
 
     // a. 将原始问题抽象成递归问题 (思考如何构造递归方法时一般会用到此过程)
@@ -29,14 +30,14 @@ public class Solution {
 
     public ListNode removeElements(ListNode head, int val) {
 
-        // 求解最小的问题, 结束递归调用
+        // 递归终止 (最小的问题)
         if (head == null) {
             return null;
         }
 
         /* 方式一: 详细步骤
 
-        // 把原问题转化成更小的问题
+        // 递归调用 (更小的同等问题)
         // 删除链表 (以下一个节点为头节点) 中等于 val 的节点, 返回删除后的链表的头节点: [behind]
         ListNode behind = removeElements(head.next, val);
 
@@ -53,7 +54,7 @@ public class Solution {
 
         // 方式二: 简洁步骤
 
-        // 把原问题转化成更小的问题
+        // 递归调用 (更小的同等问题)
         // 删除链表 (以下一个节点为头节点) 中等于 val 的节点, 返回删除后的链表的头节点: [behind]
         // 将返回后的链表赋值到当前头节点的下一个节点引用: [head -> behind]
         head.next = removeElements(head.next, val);

@@ -73,7 +73,7 @@ public class BST<E extends Comparable<E>> {
             return;
         }
 
-        // 递归调用
+        // 递归调用 (更小的同等问题)
         if (e.compareTo(node.e) < 0) {
             // 如果传入值小于当前节点的元素值, 且当前节点的左孩子不为 null, 则继续调用 add 方法 (向以 node.left (左孩子) 为根的二分搜索树中插入元素 e)
             add(node.left, e);

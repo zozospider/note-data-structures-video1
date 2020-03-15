@@ -21,7 +21,13 @@ public class Main {
 
         System.out.println("------");
 
-        System.out.println(bst);
+        // 中序遍历
+        bst.inOrder();
+
+        System.out.println("------");
+
+        // 后序遍历
+        bst.postOrder();
     }
 
 }

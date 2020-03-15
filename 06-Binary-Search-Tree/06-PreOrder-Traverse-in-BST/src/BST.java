@@ -128,6 +128,7 @@ public class BST<E extends Comparable<E>> {
 
     // 二分搜索树的前序遍历
     public void preOrder() {
+        // 前序遍历以 root 为根的二分搜索树
         preOrder(root);
     }
 
@@ -162,7 +163,6 @@ public class BST<E extends Comparable<E>> {
             return;
         }
         builder.append(toDepthString(depth)).append(node.e).append("\n");
-
         // 递归调用 (规模更小的同等问题)
         BSTToString(node.left, depth + 1, builder);
         BSTToString(node.right, depth + 1, builder);

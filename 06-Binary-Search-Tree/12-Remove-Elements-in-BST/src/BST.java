@@ -473,6 +473,8 @@ public class BST<E extends Comparable<E>> {
             }
 
             // 待删除节点的左右孩子都不为 null
+
+            // a. 后继节点策略的实现方式
             // 找到比待删除节点大的最小节点 (即待删除节点右子树的最小节点) (后继节点), 用这个节点顶替待删除节点的位置
 
             // 找到比待删除节点大的最小节点 (即待删除节点右子树的最小节点) (后继节点)
@@ -495,6 +497,14 @@ public class BST<E extends Comparable<E>> {
 
             // 返回删除节点后新的二分搜索树的根
             return successor;
+
+            /* b. 前驱节点策略的实现方式
+
+            Node predecessor = maximum(node.left);
+            predecessor.left = removeMax(node.left);
+            predecessor.right = node.right;
+            return predecessor;
+            */
         }
     }
 

@@ -6,20 +6,39 @@ public class Main {
 
     public static void main(String[] args) {
 
-        BST<Integer> bst = new BST<>();
-
         Random random = new Random();
 
+        // 删除最小值测试
+
+        BST<Integer> minBst = new BST<>();
+
         for (int i = 0; i < 20; i++) {
-            bst.add(random.nextInt(1000));
+            minBst.add(random.nextInt(1000));
         }
 
-        List<Integer> list = new ArrayList<>();
-        while (!bst.isEmpty()) {
-            list.add(bst.removeMin());
+        List<Integer> minList = new ArrayList<>();
+        while (!minBst.isEmpty()) {
+            minList.add(minBst.removeMin());
         }
 
-        System.out.println(list);
+        System.out.println(minList);
+
+        System.out.println("------");
+
+        // 删除最大值测试
+
+        BST<Integer> maxBst = new BST<>();
+
+        for (int i = 0; i < 20; i++) {
+            maxBst.add(random.nextInt(1000));
+        }
+
+        List<Integer> maxList = new ArrayList<>();
+        while (!maxBst.isEmpty()) {
+            maxList.add(maxBst.removeMax());
+        }
+
+        System.out.println(maxList);
     }
 
 }

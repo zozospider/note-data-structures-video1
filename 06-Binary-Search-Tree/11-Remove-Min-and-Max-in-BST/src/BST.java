@@ -79,19 +79,24 @@ public class BST<E extends Comparable<E>> {
         // 递归终止
         // 当前传入的根节点为 null, 则返回当前新创建的根节点
         if (node == null) {
+            // 元素个数加 1
             size++;
             return new Node(e);
         }
 
         // 递归调用 (更小的同等问题)
         // 添加元素 e 到当前节点的左孩子 / 右孩子 (子树) 中
+
         if (e.compareTo(node.e) < 0) {
+
             // 如果要添加的元素 e 小于当前节点的元素 e, 则添加到当前节点的左孩子 (子树) 中
-            // 以 node.left 为根节点, 插入元素 e, 将返回的根节点 (node.left) 作为当前 node 的新的左孩子
+            // 以 node.left 为根节点, 插入元素 e, 将返回的根节点作为当前 node 的新的左孩子
             node.left = add(node.left, e);
+
         } else if (e.compareTo(node.e) > 0) {
+
             // 如果要添加的元素 e 大于当前节点的元素 e, 则添加到当前节点的右孩子 (子树) 中
-            // 以 node.left 为根节点, 插入元素 e, 将返回的根节点 (node.right) 作为当前 node 的新的右孩子
+            // 以 node.left 为根节点, 插入元素 e, 将返回的根节点作为当前 node 的新的右孩子
             node.right = add(node.right, e);
         }
 
@@ -334,14 +339,14 @@ public class BST<E extends Comparable<E>> {
     public E removeMin() {
 
         // 查找二分搜索树的最小元素
-        E remove = minimum();
+        E min = minimum();
 
         // 删除掉以 root 为根的二分搜索树中的最小节点, 返回删除节点后新的二分搜索树的根
         // 将新的根节点赋值到 root 引用
         root = removeMin(root);
 
         // 返回最小元素
-        return remove;
+        return min;
     }
 
     // 删除掉以 node 为根的二分搜索树中的最小节点, 返回删除节点后新的二分搜索树的根
@@ -351,13 +356,55 @@ public class BST<E extends Comparable<E>> {
         if (node.left == null) {
             // 删除当前节点, 返回删除后的新的二分搜索树的根 (新的根为右孩子, 即表示将原右孩子转移到了当前删除节点的位置, 即当前节点从树中被删除)
             Node rightNode = node.right;
+            // 释放原 node 的引用
             node.right = null;
+            // 元素个数减 1
             size--;
             return rightNode;
         }
 
         // 递归调用
+        // 以 node.left 为根节点, 删除最小值节点, 将返回的根节点作为当前 node 的新的左孩子
         node.left = removeMin(node.left);
+
+        // 返回当前节点
+        return node;
+    }
+
+    // 从二分搜索树中删除最大值所在节点, 返回最大值
+    public E removeMax() {
+
+        // 查找二分搜索树的最大元素
+        E max = maximum();
+
+        // 删除掉以 root 为根的二分搜索树中的最大节点, 返回删除节点后新的二分搜索树的根
+        // 将新的根节点赋值到 root 引用
+        root = removeMax(root);
+
+        // 返回最大元素
+        return max;
+    }
+
+    // 删除掉以 node 为根的二分搜索树中的最大节点, 返回删除节点后新的二分搜索树的根
+    private Node removeMax(Node node) {
+
+        // 递归终止
+        // 返回当前二分搜索树的新的根节点
+        if (node.right == null) {
+
+            // 删除当前节点, 返回删除后的新的二分搜索树的根 (新的根为左孩子, 即表示将原左孩子转移到了当前删除节点的位置, 即当前节点从树中被删除)
+            Node leftNode = node.left;
+            // 释放原 node 的引用
+            node.left = null;
+            // 元素个数减 1
+            size--;
+            // 删除后新的根为左节点
+            return leftNode;
+        }
+
+        // 递归调用
+        // 以 node.right 为根节点, 删除最大值节点, 将返回的根节点作为当前 node 的新的右孩子
+        node.right = removeMax(node.right);
 
         // 返回当前节点
         return node;

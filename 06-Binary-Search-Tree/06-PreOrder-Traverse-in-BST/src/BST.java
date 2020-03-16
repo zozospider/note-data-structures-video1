@@ -82,11 +82,11 @@ public class BST<E extends Comparable<E>> {
         // 递归调用 (更小的同等问题)
         if (e.compareTo(node.e) < 0) {
             // 插入到根节点的左孩子
-            // 以 node.left 为根节点, 插入元素 e, 将返回的根节点 (node.left) 赋值给 node.left
+            // 以 node.left 为根节点, 插入元素 e, 将返回的根节点 (node.left) 作为当前 node 的新的左孩子
             node.left = add(node.left, e);
         } else if (e.compareTo(node.e) > 0) {
             // 插入到根节点的右孩子
-            // 以 node.left 为根节点, 插入元素 e, 将返回的根节点 (node.right) 赋值给 node.right
+            // 以 node.left 为根节点, 插入元素 e, 将返回的根节点 (node.right) 作为当前 node 的新的右孩子
             node.right = add(node.right, e);
         }
 

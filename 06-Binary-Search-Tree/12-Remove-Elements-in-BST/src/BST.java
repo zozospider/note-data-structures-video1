@@ -479,7 +479,7 @@ public class BST<E extends Comparable<E>> {
             // size--;
 
             // 返回删除节点后新的二分搜索树的根
-            // return successor;
+            return successor;
 
             /* 方式一 (更直观的实现方式, 操作不同节点的引用来改变树结构)
             // b. 前驱节点策略的实现方式
@@ -488,6 +488,8 @@ public class BST<E extends Comparable<E>> {
             predecessor.right = node.right;
             return predecessor;
             */
+
+            // ------
 
             /* 方式二: (更高效的实现方式, 直接修改被删除节点)
             // a. 后继节点策略的实现方式
@@ -501,6 +503,8 @@ public class BST<E extends Comparable<E>> {
             node.left = predecessor;
             return node;
              */
+
+            // ------
 
             /* 方式三: (更简洁的实现方式, 直接修改被删除节点)
             // a. 后继节点策略的实现方式

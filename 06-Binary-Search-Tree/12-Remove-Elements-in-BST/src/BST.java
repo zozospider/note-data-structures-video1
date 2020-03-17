@@ -434,45 +434,27 @@ public class BST<E extends Comparable<E>> {
             return null;
         }
 
-        if (e.compareTo(node.e) < 0) {
+        // 递归终止
+        if (e.compareTo(node.e) == 0) {
 
-            // 递归调用
-            node.left = remove(node.left, e);
-            return node;
-
-        } else if (e.compareTo(node.e) > 0) {
-
-            // 递归调用
-            node.right = remove(node.right, e);
-            return node;
-
-        } else { // e.compareTo(node.e) == 0
-
-            // 递归终止
-            // 待删除节点的左孩子为 null (如果此时左右右孩子都为 null, 逻辑也兼容)
+            // 1. 待删除节点的左孩子为 null (如果此时左右右孩子都为 null, 逻辑也兼容)
+            // 删除当前节点, 返回删除后的新的二分搜索树的根 (新的根为右孩子, 即表示将原右孩子转移到了当前删除节点的位置, 即当前节点从树中被删除)
             if (node.left == null) {
-
-                // 删除当前节点, 返回删除后的新的二分搜索树的根 (新的根为右孩子, 即表示将原右孩子转移到了当前删除节点的位置, 即当前节点从树中被删除)
-
                 Node rightNode = node.right;
                 node.right = null;
                 size--;
                 return rightNode;
             }
-
-            // 递归终止
-            // 待删除节点的右孩子为 null
+            // 2. 待删除节点的右孩子为 null
+            // 删除当前节点, 返回删除后的新的二分搜索树的根 (新的根为左孩子, 即表示将原左孩子转移到了当前删除节点的位置, 即当前节点从树中被删除)
             if (node.right == null) {
-
-                // 删除当前节点, 返回删除后的新的二分搜索树的根 (新的根为左孩子, 即表示将原左孩子转移到了当前删除节点的位置, 即当前节点从树中被删除)
-
                 Node leftNode = node.left;
                 node.left = null;
                 size--;
                 return leftNode;
             }
 
-            // 待删除节点的左右孩子都不为 null
+            // 3. 待删除节点的左右孩子都不为 null
 
             // a. 后继节点策略的实现方式
             // 找到比待删除节点大的最小节点 (即待删除节点右子树的最小节点) (后继节点), 用这个节点顶替待删除节点的位置
@@ -505,6 +487,49 @@ public class BST<E extends Comparable<E>> {
             predecessor.right = node.right;
             return predecessor;
             */
+        }
+
+        // 递归调用
+        if (e.compareTo(node.e) < 0) {
+            node.left = remove(node.left, e);
+        } else if (e.compareTo(node.e) > 0) {
+            node.right = remove(node.right, e);
+        }
+        return node;
+    }
+
+    // 删除掉以 node 为根的二分搜索树中值为 e 的节点, 返回删除节点后新的二分搜索树的根
+    private Node remove_backup(Node node, E e) {
+        // 递归终止
+        if (node == null) {
+            return null;
+        }
+        if (e.compareTo(node.e) < 0) {
+            // 递归调用
+            node.left = remove_backup(node.left, e);
+            return node;
+        } else if (e.compareTo(node.e) > 0) {
+            // 递归调用
+            node.right = remove_backup(node.right, e);
+            return node;
+        } else { // e.compareTo(node.e) == 0
+            // 递归终止
+            if (node.left == null) {
+                Node rightNode = node.right;
+                node.right = null;
+                size--;
+                return rightNode;
+            }
+            if (node.right == null) {
+                Node leftNode = node.left;
+                node.left = null;
+                size--;
+                return leftNode;
+            }
+            Node successor = minimum(node.right);
+            successor.right = removeMin(node.right);
+            successor.left = node.left;
+            return successor;
         }
     }
 

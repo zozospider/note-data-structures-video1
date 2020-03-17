@@ -1,5 +1,6 @@
 public class Solution2 {
 
+    // 删除以 head 为头节点的链表中等于 val 的所有节点, 返回删除后的链表的头节点
     public ListNode removeElements(ListNode head, int val) {
 
         // 引入虚拟头节点, 是为了统一对所有节点的操作, 而不需要单独处理头部节点的特殊情况 (头部节点没有 prev)

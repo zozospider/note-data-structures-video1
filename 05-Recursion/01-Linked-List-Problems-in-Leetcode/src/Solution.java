@@ -1,5 +1,6 @@
 public class Solution {
 
+    // 删除以 head 为头节点的链表中等于 val 的所有节点, 返回删除后的链表的头节点
     public ListNode removeElements(ListNode head, int val) {
 
         // 因为头节点没有 prev 节点, 所以需要单独处理

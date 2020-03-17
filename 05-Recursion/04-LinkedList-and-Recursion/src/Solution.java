@@ -1,7 +1,7 @@
 public class Solution {
 
     // 此方法的宏观语义 (重点关注):
-    // 删除链表中等于 val 的节点, 返回删除后的链表的头节点
+    // 删除以 head 为头节点的链表中等于 val 的所有节点, 返回删除后的链表的头节点
 
     // a. 将原始问题抽象成递归问题 (思考如何构造递归方法时一般会用到此过程)
     // 1. removeElements(N0 -> N1 -> N2 -> ... -> N(n-2) -> N(n-1), val)
@@ -63,6 +63,27 @@ public class Solution {
         // 删除: 如果当前头节点等于 val, 则返回删除后的链表: return [behind]
         // 不删除: 如果当前头节点不等于 val, 则返回当前头节点加删除后的链表: return [head -> behind]
         return head.val == val ? head.next : head;
+    }
+
+    // 此方法的宏观语义 (重点关注):
+    // 删除以 head 为头节点的链表中等于 val 的第一个节点, 返回删除后的链表的头节点
+    public ListNode removeFirstElement(ListNode head, int val) {
+
+        // 递归终止
+        if (head == null) {
+            return null;
+        }
+
+        // 递归终止
+        if (head.val == val) {
+            ListNode nextNode = head.next;
+            head.next = null;
+            return nextNode;
+        }
+
+        // 递归调用
+        head.next = removeFirstElement(head.next, val);
+        return head;
     }
 
 }

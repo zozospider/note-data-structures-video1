@@ -1,6 +1,9 @@
 /**
- * https://leetcode-cn.com/problems/remove-linked-list-elements/
  * 203. 移除链表元素
+ * https://leetcode-cn.com/problems/remove-linked-list-elements/
+ * 203. Remove Linked List Elements
+ * https://leetcode.com/problems/remove-linked-list-elements/description/
+ *
  * 删除链表中等于给定值 val 的所有节点。
  * 示例:
  * 输入: 1->2->6->3->4->5->6, val = 6

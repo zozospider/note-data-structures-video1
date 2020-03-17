@@ -74,10 +74,6 @@ public class BST<E extends Comparable<E>> {
     // node!=null -> return add(node.right, e);
     //   node     ->  node
     // left right   left right (return add(right, e) = 情况 2 / 3)
-
-    // 时间复杂度 (满树时): O(h) = O(log 2 (n+1))
-    // 最差复杂度 (退化成链表时): O(n)
-    // 平均复杂度 (大部分情况, 且忽略底数): O(log n)
     private Node add(Node node, E e) {
 
         // 递归终止
@@ -109,9 +105,6 @@ public class BST<E extends Comparable<E>> {
     }
 
     // 二分搜索树中是否包含元素 e
-    // 时间复杂度 (满树时): O(h) = O(log 2 (n+1))
-    // 最差复杂度 (退化成链表时): O(n)
-    // 平均复杂度 (大部分情况, 且忽略底数): O(log n)
     public boolean contains(E e) {
 
         // 返回以 root 为根节点的二分搜索树中是否包含元素 e
@@ -426,9 +419,6 @@ public class BST<E extends Comparable<E>> {
     }
 
     // 从二分搜索树中删除元素为 e 的节点 (建议画图帮助理解各个步骤的执行顺序)
-    // 时间复杂度 (满树时): O(h) = O(log 2 (n+1))
-    // 最差复杂度 (退化成链表时): O(n)
-    // 平均复杂度 (大部分情况, 且忽略底数): O(log n)
     public void remove(E e) {
 
         // 删除掉以 root 为根的二分搜索树中值为 e 的节点, 返回删除节点后新的二分搜索树的根

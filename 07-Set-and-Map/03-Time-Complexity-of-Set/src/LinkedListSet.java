@@ -7,25 +7,22 @@ public class LinkedListSet<E> implements Set<E> {
         linkedList = new LinkedList<>();
     }
 
-    // 时间复杂度: O(1)
     @Override
     public int getSize() {
         return linkedList.getSize();
     }
 
-    // 时间复杂度: O(1)
     @Override
     public boolean isEmpty() {
         return linkedList.isEmpty();
     }
 
-    // 时间复杂度: O(n)
     @Override
     public boolean contains(E e) {
         return linkedList.contains(e);
     }
 
-    // 时间复杂度: O(n) + O(1) = O(n)
+    // 时间复杂度: O(n)
     @Override
     public void add(E e) {
 
@@ -37,7 +34,6 @@ public class LinkedListSet<E> implements Set<E> {
         }
     }
 
-    // 时间复杂度: O(n)
     @Override
     public void remove(E e) {
         linkedList.removeElement(e);

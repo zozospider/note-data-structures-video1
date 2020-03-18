@@ -40,6 +40,59 @@ public class BST<E extends Comparable<E>> {
         return size == 0;
     }
 
+    // 二分搜索树中是否包含元素 e
+    public boolean contains(E e) {
+
+        // 返回以 root 为根节点的二分搜索树中是否包含元素 e
+        return contains(root, e);
+    }
+
+    // 此方法的宏观语义 (重点关注):
+    // 判断以 node 为根的二分搜索树中是否包含元素 e
+    private boolean contains(Node node, E e) {
+
+        // 递归终止
+        // node 为 null, 则不包含
+        if (node == null) {
+            return false;
+        }
+
+        if (e.compareTo(node.e) == 0) {
+            // 递归终止
+            // 如果元素 e 等于 node 的元素值, 则包含
+            return true;
+        } else if (e.compareTo(node.e) < 0) {
+            // 递归调用 (规模更小的同等问题)
+            // 如果元素 e 在 node 的左孩子中, 则返回以 node 的左孩子为根的二分搜索树中是否包含元素 e
+            return contains(node.left, e);
+        } else { // e.compareTo(node.e) > 0
+            // 递归调用 (规模更小的同等问题)
+            // 如果元素 e 在 node 的右孩子中, 则返回以 node 的右孩子为根的二分搜索树中是否包含元素 e
+            return contains(node.right, e);
+        }
+    }
+
+    // 二分搜索树的前序遍历
+    public void preOrder() {
+        // 前序遍历以 root 为根的二分搜索树
+        preOrder(root);
+    }
+
+    // 前序遍历以 node 为根的二分搜索树
+    private void preOrder(Node node) {
+
+        // 递归终止
+        if (node == null) {
+            return;
+        }
+
+        System.out.println(node.e);
+
+        // 递归调用 (规模更小的同等问题)
+        preOrder(node.left);
+        preOrder(node.right);
+    }
+
     // 向二分搜索树中添加元素 e
     public void add(E e) {
 
@@ -93,59 +146,6 @@ public class BST<E extends Comparable<E>> {
 
         // 返回当前根节点
         return node;
-    }
-
-    // 二分搜索树中是否包含元素 e
-    public boolean contains(E e) {
-
-        // 返回以 root 为根节点的二分搜索树中是否包含元素 e
-        return contains(root, e);
-    }
-
-    // 此方法的宏观语义 (重点关注):
-    // 判断以 node 为根的二分搜索树中是否包含元素 e
-    private boolean contains(Node node, E e) {
-
-        // 递归终止
-        // node 为 null, 则不包含
-        if (node == null) {
-            return false;
-        }
-
-        if (e.compareTo(node.e) == 0) {
-            // 递归终止
-            // 如果元素 e 等于 node 的元素值, 则包含
-            return true;
-        } else if (e.compareTo(node.e) < 0) {
-            // 递归调用 (规模更小的同等问题)
-            // 如果元素 e 在 node 的左孩子中, 则返回以 node 的左孩子为根的二分搜索树中是否包含元素 e
-            return contains(node.left, e);
-        } else { // e.compareTo(node.e) > 0
-            // 递归调用 (规模更小的同等问题)
-            // 如果元素 e 在 node 的右孩子中, 则返回以 node 的右孩子为根的二分搜索树中是否包含元素 e
-            return contains(node.right, e);
-        }
-    }
-
-    // 二分搜索树的前序遍历
-    public void preOrder() {
-        // 前序遍历以 root 为根的二分搜索树
-        preOrder(root);
-    }
-
-    // 前序遍历以 node 为根的二分搜索树
-    private void preOrder(Node node) {
-
-        // 递归终止
-        if (node == null) {
-            return;
-        }
-
-        System.out.println(node.e);
-
-        // 递归调用 (规模更小的同等问题)
-        preOrder(node.left);
-        preOrder(node.right);
     }
 
     @Override

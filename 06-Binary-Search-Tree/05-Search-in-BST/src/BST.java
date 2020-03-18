@@ -40,6 +40,13 @@ public class BST<E extends Comparable<E>> {
         return size == 0;
     }
 
+    // 二分搜索树中是否包含元素 e
+    public boolean contains(E e) {
+
+        // 返回以 root 为根节点的二分搜索树中是否包含元素 e
+        return contains(root, e);
+    }
+
     // 向二分搜索树中添加元素 e
     public void add(E e) {
 
@@ -93,13 +100,6 @@ public class BST<E extends Comparable<E>> {
 
         // 返回当前根节点
         return node;
-    }
-
-    // 二分搜索树中是否包含元素 e
-    public boolean contains(E e) {
-
-        // 返回以 root 为根节点的二分搜索树中是否包含元素 e
-        return contains(root, e);
     }
 
     // 此方法的宏观语义 (重点关注):

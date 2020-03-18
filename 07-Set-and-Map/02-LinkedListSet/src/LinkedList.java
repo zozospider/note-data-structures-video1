@@ -264,7 +264,7 @@ public class LinkedList<E> {
 
         Node current = dummyHead.next;
         while (current != null) {
-            builder.append(current + " -> ");
+            builder.append(current).append(" -> ");
             current = current.next;
         }
         builder.append("NULL");

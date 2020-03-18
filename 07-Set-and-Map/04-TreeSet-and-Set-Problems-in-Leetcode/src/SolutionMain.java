@@ -27,8 +27,12 @@ public class SolutionMain {
         String[] words = {"gin", "zen", "gig", "msg"};
 
         int uniqueCount = new Solution().uniqueMorseRepresentations(words);
+        int uniqueCount2 = new Solution2().uniqueMorseRepresentations(words);
+        int uniqueCount3 = new Solution3().uniqueMorseRepresentations(words);
 
         System.out.println(uniqueCount);
+        System.out.println(uniqueCount2);
+        System.out.println(uniqueCount3);
     }
 
 }

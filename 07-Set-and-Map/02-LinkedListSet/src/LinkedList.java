@@ -241,17 +241,29 @@ public class LinkedList<E> {
     // 时间复杂度: O(n)
     public void removeElement(E e) {
 
+        // 最终得到要删除的节点的前一个节点 (从虚拟头节点开始算第一个)
+        // 也可以理解成用于记录某个节点的前一个节点 (从头部节点的前一个节点开始)
         Node prev = dummyHead;
+
+        // 从虚拟头节点开始, 通过节点的 next 引用, 依次找下一个节点, 并判断下一个节点对应的元素值是否等于传入的参数值
         while (prev.next != null) {
             if (prev.next.e.equals(e))
                 break;
+            // prev 赋值为下一个节点的前一个节点的引用
             prev = prev.next;
         }
 
+        // 如果 prev.next (即当前节点) 不为 null, 说明找到了需要删除的节点
         if (prev.next != null) {
-            Node delNode = prev.next;
-            prev.next = delNode.next;
-            delNode.next = null;
+
+            // 1. 获取要删除节点 (要删除节点的前一个节点的下一个节点)
+            Node remove = prev.next;
+            // 2. 将要删除节点的前一个节点的下一个节点的引用修改为要删除节点的下一个节点, 即跳过了要删除节点
+            prev.next = remove.next;
+            // 3. 释放将要删除节点的下一个节点的引用 (此时它的上一个节点对它的引用在第 2 步已经修改, 它对其他节点的引用在第 3 步也已经修改, 因此 remove 对应的堆内存对象满足垃圾回收条件)
+            remove.next = null;
+
+            // 元素个数减 1
             size--;
         }
     }

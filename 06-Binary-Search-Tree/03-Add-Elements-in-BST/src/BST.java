@@ -12,10 +12,10 @@ public class BST<E extends Comparable<E>> {
         // 右孩子
         Node right;
 
-        Node(E e) {
+        Node(E e, Node left, Node right) {
             this.e = e;
-            left = null;
-            right = null;
+            this.left = left;
+            this.right = right;
         }
     }
 
@@ -45,7 +45,7 @@ public class BST<E extends Comparable<E>> {
 
         if (root == null) {
             // 根节点需要单独处理
-            root = new Node(e);
+            root = new Node(e, null, null);
         } else {
             // 如果有根节点, 就向以根节点开始的二分搜索树中插入元素 e (递归算法)
             add(root, e);
@@ -63,12 +63,12 @@ public class BST<E extends Comparable<E>> {
             return;
         } else if (e.compareTo(node.e) < 0 && node.left == null) {
             // 如果传入值小于当前节点的元素值, 且当前节点的左孩子为 null, 则将节点插入到左孩子的位置, 结束递归调用
-            node.left = new Node(e);
+            node.left = new Node(e, null, null);
             size++;
             return;
         } else if (e.compareTo(node.e) > 0 && node.right == null) {
             // 如果传入值大于当前节点的元素值, 且当前节点的右孩子为 null, 则将节点插入到右孩子的位置, 结束递归调用
-            node.right = new Node(e);
+            node.right = new Node(e, null, null);
             size++;
             return;
         }
@@ -87,14 +87,14 @@ public class BST<E extends Comparable<E>> {
             if (node.left != null) {
                 add(node.left, e);
             } else {
-                node.left = new Node(e);
+                node.left = new Node(e, null, null);
                 size++;
             }
         } else if (e.compareTo(node.e) > 0) {
             if (node.right != null) {
                 add(node.right, e);
             } else {
-                node.right = new Node(e);
+                node.right = new Node(e, null, null);
                 size++;
             }
         }*/

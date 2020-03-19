@@ -12,10 +12,10 @@ public class BST<E extends Comparable<E>> {
         // 右孩子
         Node right;
 
-        Node(E e) {
+        Node(E e, Node left, Node right) {
             this.e = e;
-            left = null;
-            right = null;
+            this.left = left;
+            this.right = right;
         }
     }
 

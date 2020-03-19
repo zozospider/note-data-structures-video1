@@ -16,10 +16,10 @@ public class BST<E extends Comparable<E>> {
         // 右孩子
         Node right;
 
-        Node(E e) {
+        Node(E e, Node left, Node right) {
             this.e = e;
-            left = null;
-            right = null;
+            this.left = left;
+            this.right = right;
         }
     }
 
@@ -312,7 +312,7 @@ public class BST<E extends Comparable<E>> {
         if (node == null) {
             // 元素个数加 1
             size++;
-            return new Node(e);
+            return new Node(e, null, null);
         }
 
         // 递归调用 (更小的同等问题)

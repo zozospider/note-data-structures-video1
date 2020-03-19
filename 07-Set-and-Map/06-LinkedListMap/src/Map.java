@@ -12,7 +12,7 @@ public interface Map<K, V> {
     // 获取映射中 key 对应的 value
     V get(K key);
 
-    // 将元素 key value 添加到映射中 (如果 key 已存在, 则修改 key 对应的 value)
+    // 将元素 (key - value) 添加到映射中 (如果 key 已存在, 则修改 key 对应的 value)
     void add(K key, V value);
 
     // 修改映射中 key 对应的 value

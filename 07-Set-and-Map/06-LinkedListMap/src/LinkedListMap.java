@@ -1,6 +1,6 @@
 public class LinkedListMap<K, V> implements Map<K, V> {
 
-    // 映射中的节点 (设置为 private 是为了屏蔽外部访问)
+    // 映射中的节点
     private class Node {
 
         // key
@@ -70,7 +70,7 @@ public class LinkedListMap<K, V> implements Map<K, V> {
         return node == null ? null : node.value;
     }
 
-    // 将元素 key value 添加到映射中 (如果 key 已存在, 则修改 key 对应的 value)
+    // 将元素 (key - value) 添加到映射中 (如果 key 已存在, 则修改 key 对应的 value)
     @Override
     public void add(K key, V value) {
 

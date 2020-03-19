@@ -12,10 +12,10 @@ public class BST<E extends Comparable<E>> {
         // 右孩子
         Node right;
 
-        Node(E e) {
+        Node(E e, Node left, Node right) {
             this.e = e;
-            left = null;
-            right = null;
+            this.left = left;
+            this.right = right;
         }
     }
 
@@ -76,7 +76,7 @@ public class BST<E extends Comparable<E>> {
         // 当前传入的根节点为 null, 则返回当前新创建的根节点
         if (node == null) {
             size++;
-            return new Node(e);
+            return new Node(e, null, null);
         }
 
         // 递归调用 (更小的同等问题)

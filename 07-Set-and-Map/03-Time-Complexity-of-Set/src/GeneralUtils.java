@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class GeneralUtil {
+public class GeneralUtils {
 
     private static final Random random = new Random();
 
@@ -13,6 +13,18 @@ public class GeneralUtil {
             numbers.add(random.nextInt(max));
         }
         return numbers;
+    }
+
+    public static List<String> generalWords(int charNumber, int count) {
+        List<String> words = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            StringBuilder builder = new StringBuilder();
+            for (int j = 0; j < charNumber; j++) {
+                builder.append((char) (random.nextInt(26) + 'a'));
+            }
+            words.add(builder.toString());
+        }
+        return words;
     }
 
 }

@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) {
 
         // 随机生成 100 万个整数, 每个整数最大值 1000
-        List<Integer> numbers = GeneralUtil.randomNumbers(1_000_000, 1000);
+        List<Integer> numbers = GeneralUtils.randomNumbers(1_000_000, 1000);
         System.out.println("Total numbers: " + numbers.size());
 
         // 平均复杂度:

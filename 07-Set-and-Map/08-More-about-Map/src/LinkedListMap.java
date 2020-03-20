@@ -54,6 +54,7 @@ public class LinkedListMap<K, V> implements Map<K, V> {
     }
 
     // 映射中是否包含 key
+    // 时间复杂度: O(n)
     @Override
     public boolean contains(K key) {
 
@@ -62,6 +63,7 @@ public class LinkedListMap<K, V> implements Map<K, V> {
     }
 
     // 获取映射中 key 对应的 value
+    // 时间复杂度: O(n)
     @Override
     public V get(K key) {
 
@@ -71,6 +73,7 @@ public class LinkedListMap<K, V> implements Map<K, V> {
     }
 
     // 将元素 (key - value) 添加到映射中 (如果 key 已存在, 则修改 key 对应的 value)
+    // 时间复杂度: O(n)
     @Override
     public void add(K key, V value) {
 
@@ -88,6 +91,7 @@ public class LinkedListMap<K, V> implements Map<K, V> {
     }
 
     // 修改映射中 key 对应的 value
+    // 时间复杂度: O(n)
     @Override
     public void set(K key, V value) {
 
@@ -104,6 +108,7 @@ public class LinkedListMap<K, V> implements Map<K, V> {
     }
 
     // 将 key 从映射中删除
+    // 时间复杂度: O(n)
     @Override
     public V remove(K key) {
 

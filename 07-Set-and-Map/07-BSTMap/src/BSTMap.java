@@ -35,18 +35,22 @@ public class BSTMap<K extends Comparable<K>, V> implements Map<K, V> {
     }
 
     // 映射元素的大小 (获取树中的元素个数)
+    // 时间复杂度: O(1)
     @Override
     public int getSize() {
         return size;
     }
 
     // 映射是否为空 (返回树是否为空)
+    // 时间复杂度: O(1)
     @Override
     public boolean isEmpty() {
         return size == 0;
     }
 
     // 映射中是否包含 key (二分搜索树中是否包含元素 (key - value))
+    // 平均复杂度: O(h) = O(log n)
+    // 最差复杂度: O(n)
     @Override
     public boolean contains(K key) {
 
@@ -55,6 +59,8 @@ public class BSTMap<K extends Comparable<K>, V> implements Map<K, V> {
     }
 
     // 获取映射中 key 对应的 value
+    // 平均复杂度: O(h) = O(log n)
+    // 最差复杂度: O(n)
     @Override
     public V get(K key) {
 
@@ -64,6 +70,8 @@ public class BSTMap<K extends Comparable<K>, V> implements Map<K, V> {
     }
 
     // 将元素 (key - value) 添加到映射中 (向二分搜索树中添加元素 (key - value)) (如果 key 已存在, 则修改 key 对应的 value)
+    // 平均复杂度: O(h) = O(log n)
+    // 最差复杂度: O(n)
     @Override
     public void add(K key, V value) {
 
@@ -109,6 +117,8 @@ public class BSTMap<K extends Comparable<K>, V> implements Map<K, V> {
     }
 
     // 修改映射中 key 对应的 value
+    // 平均复杂度: O(h) = O(log n)
+    // 最差复杂度: O(n)
     @Override
     public void set(K key, V value) {
 
@@ -125,6 +135,8 @@ public class BSTMap<K extends Comparable<K>, V> implements Map<K, V> {
     }
 
     // 将 key 从映射中删除 (从二分搜索树中删除元素为 (key - value) 的节点)
+    // 平均复杂度: O(h) = O(log n)
+    // 最差复杂度: O(n)
     @Override
     public V remove(K key) {
 

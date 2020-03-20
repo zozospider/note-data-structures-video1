@@ -17,7 +17,7 @@ import java.util.Arrays;
  * 输出结果中的每个元素一定是唯一的。
  * 我们可以不考虑输出结果的顺序。
  */
-public class Main {
+public class LeetCode349 {
 
     public static void main(String[] args) {
         main1();

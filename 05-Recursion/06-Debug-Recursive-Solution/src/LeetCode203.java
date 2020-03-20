@@ -9,7 +9,7 @@
  * 输入: 1->2->6->3->4->5->6, val = 6
  * 输出: 1->2->3->4->5
  */
-public class SolutionMain {
+public class LeetCode203 {
 
     public static void main(String[] args) {
         // main1();

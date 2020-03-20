@@ -20,7 +20,7 @@
  * "msg" -> "--...--."
  * 共有 2 种不同翻译, "--...-." 和 "--...--.".
  */
-public class SolutionMain {
+public class LeetCode804 {
 
     public static void main(String[] args) {
 

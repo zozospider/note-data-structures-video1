@@ -7,7 +7,7 @@
  * 左括号必须以正确的顺序闭合。
  * 注意空字符串可被认为是有效字符串。
  */
-public class SolutionMain {
+public class LeetCode20 {
 
     public static void main(String[] args) {
 

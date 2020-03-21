@@ -34,6 +34,18 @@ public class LoopQueue<E> implements Queue<E> {
         return front == tail;
     }
 
+    // 时间复杂度: O(1)
+    @Override
+    public E getFront() {
+
+        // 不能从空数组取出元素
+        if (isEmpty()) {
+            throw new IllegalArgumentException("Can not dequeue from an empty queue.");
+        }
+
+        return data[front];
+    }
+
     // 均摊复杂度: O(1)
     @Override
     public void enqueue(E e) {
@@ -96,18 +108,6 @@ public class LoopQueue<E> implements Queue<E> {
         }
 
         return e;
-    }
-
-    // 时间复杂度: O(1)
-    @Override
-    public E getFront() {
-
-        // 不能从空数组取出元素
-        if (isEmpty()) {
-            throw new IllegalArgumentException("Can not dequeue from an empty queue.");
-        }
-
-        return data[front];
     }
 
     // 将数组的容量变成 newCapacity 大小

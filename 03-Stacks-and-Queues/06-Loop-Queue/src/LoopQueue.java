@@ -33,17 +33,17 @@ public class LoopQueue<E> implements Queue<E> {
     }
 
     @Override
+    public E getFront() {
+        return null;
+    }
+
+    @Override
     public void enqueue(E e) {
 
     }
 
     @Override
     public E dequeue() {
-        return null;
-    }
-
-    @Override
-    public E getFront() {
         return null;
     }
 

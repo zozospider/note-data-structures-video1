@@ -23,6 +23,12 @@ public class ArrayQueue<E> implements Queue<E> {
         return array.isEmpty();
     }
 
+    // 时间复杂度: O(1)
+    @Override
+    public E getFront() {
+        return array.getFirst();
+    }
+
     // 均摊复杂度: O(1)
     @Override
     public void enqueue(E e) {
@@ -33,12 +39,6 @@ public class ArrayQueue<E> implements Queue<E> {
     @Override
     public E dequeue() {
         return array.removeFirst();
-    }
-
-    // 时间复杂度: O(1)
-    @Override
-    public E getFront() {
-        return array.getFirst();
     }
 
     private int getCapacity() {

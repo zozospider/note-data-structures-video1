@@ -22,13 +22,20 @@ public class LoopQueueT<E> implements Queue<E> {
     }
 
     @Override
+    public int getSize(){
+        return size;
+    }
+
+    @Override
     public boolean isEmpty(){
         return front == tail;
     }
 
     @Override
-    public int getSize(){
-        return size;
+    public E getFront(){
+        if(isEmpty())
+            throw new IllegalArgumentException("Queue is empty.");
+        return data[front];
     }
 
     @Override
@@ -55,13 +62,6 @@ public class LoopQueueT<E> implements Queue<E> {
         if(size == getCapacity() / 4 && getCapacity() / 2 != 0)
             resize(getCapacity() / 2);
         return ret;
-    }
-
-    @Override
-    public E getFront(){
-        if(isEmpty())
-            throw new IllegalArgumentException("Queue is empty.");
-        return data[front];
     }
 
     private void resize(int newCapacity){

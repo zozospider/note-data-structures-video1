@@ -55,6 +55,19 @@ public class LinkedListQueue<E> implements Queue<E> {
 
     // 时间复杂度: O(1)
     @Override
+    public E getFront() {
+
+        // 如果队列为空, 抛出异常
+        if (isEmpty()) {
+            throw new IllegalArgumentException("Cannot dequeue from an empty queue.");
+        }
+
+        // 返回头部节点的元素值
+        return head.e;
+    }
+
+    // 时间复杂度: O(1)
+    @Override
     public void enqueue(E e) {
 
         // 尾部节点为 null 表示队列中没有元素
@@ -106,19 +119,6 @@ public class LinkedListQueue<E> implements Queue<E> {
 
         // 返回要出队的节点的元素值
         return headNode.e;
-    }
-
-    // 时间复杂度: O(1)
-    @Override
-    public E getFront() {
-
-        // 如果队列为空, 抛出异常
-        if (isEmpty()) {
-            throw new IllegalArgumentException("Cannot dequeue from an empty queue.");
-        }
-
-        // 返回头部节点的元素值
-        return head.e;
     }
 
     @Override

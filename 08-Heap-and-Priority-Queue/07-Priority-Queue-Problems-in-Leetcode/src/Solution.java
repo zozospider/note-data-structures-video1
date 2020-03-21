@@ -43,7 +43,7 @@ public class Solution {
             }
         }
 
-        // 遍历 map, 将 map 中的元素和其出现的频次加入到优先队列中
+        // 遍历 map, 将 map 中的元素和其出现的频次加入到优先队列中 (最大堆: 优先级最高的在最上面)
         Queue<Element> priorityQueue = new MaxHeapPriorityQueue<>();
 
         // 遍历 map 所有数据, 加入到优先队列中 (队列中存储 k 个元素)

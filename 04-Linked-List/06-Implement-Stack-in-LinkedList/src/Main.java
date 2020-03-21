@@ -6,10 +6,14 @@ public class Main {
 
         int count = 100_000;
 
+        // 均摊复杂度:
+        // push, pop: O(1)
         Stack<Integer> arrayStack = new ArrayStack<>();
         long arrayTime = testStack(arrayStack, count);
         System.out.println("ArrayStack time: " + arrayTime + "ms");
 
+        // 时间复杂度:
+        // push, pop: O(1)
         Stack<Integer> linkedListStack = new LinkedListStack<>();
         long linkedListTime = testStack(linkedListStack, count);
         System.out.println("LinkedListStack time: " + linkedListTime + "ms");

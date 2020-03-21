@@ -11,6 +11,20 @@ public class MaxHeap<E extends Comparable<E>> {
         array = new Array<>();
     }
 
+    // 通过任意数组初始化堆 (Heapify 方式: 建议画图帮助理解执行逻辑)
+    // 时间复杂度 O(n) (证明方式较为复杂)
+    public MaxHeap(E[] arr) {
+
+        array = new Array<>(arr);
+
+        // 从完全二叉树的最后一个节点的父节点开始, 依次往前遍历, 直到第顶部节点
+        // 每次循环都对当前索引执行下沉操作
+        int startIndex = parentIndex(array.getSize() - 1);
+        for (int i = startIndex; i > 0; i--) {
+            siftDown(i);
+        }
+    }
+
     // 获取堆中的元素个数
     public int getSize() {
         return array.getSize();
@@ -50,6 +64,37 @@ public class MaxHeap<E extends Comparable<E>> {
 
         // 下沉操作: 从数组的第一个 (完全二叉树的最上层的节点) 开始, 进行下沉操作, 直到满足堆结构的规则
         siftDown(0);
+
+        return max;
+    }
+
+    // 取出堆中的最大元素, 并且替换成元素 e (方式一: 先替换最大元素, 再执行下沉操作, 建议画图帮助理解执行逻辑)
+    // 时间复杂度: O(log n)
+    public E replace(E e) {
+
+        // 查询堆中的最大元素
+        // 时间复杂度: O(1)
+        E max = findMax();
+
+        // 将元素 e 设置成堆的最大值后, 执行下沉操作, 确保堆结构的正确性
+        array.set(0, e);
+        // 时间复杂度: O(log n)
+        siftDown(0);
+
+        return max;
+    }
+
+    // 取出堆中的最大元素, 并且替换成元素 e (方式二: 先取出最大元素, 再添加当前元素)
+    // 时间复杂度: 2 * O(log n)
+    public E replace2(E e) {
+
+        // 取出堆中的最大元素
+        // 时间复杂度: O(log n)
+        E max = extractMax();
+
+        // 将元素 e 添加到堆中
+        // 时间复杂度: O(log n)
+        add(e);
 
         return max;
     }

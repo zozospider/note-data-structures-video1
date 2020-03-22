@@ -1,6 +1,6 @@
 public class MaxHeap<E extends Comparable<E>> {
 
-    // 内部用动态数组存储数据
+    // 内部用原始数据对应的完全二叉树结构的数组来存储数据
     private Array<E> array;
 
     public MaxHeap(int capacity) {
@@ -52,7 +52,7 @@ public class MaxHeap<E extends Comparable<E>> {
         }
     }
 
-    // 返回完全二叉树的数组表示中 (从索引 0 开始表示第一个节点), 一个索引所表示的元素的父亲节点的索引
+    // 返回 array (完全二叉树) 的数组表示中 (从索引 0 开始表示第一个节点), 一个索引所表示的元素的父亲节点的索引
     private int parentIndex(int index) {
         if (index == 0) {
             throw new IllegalArgumentException("index-0 does not have parent.");
@@ -60,12 +60,12 @@ public class MaxHeap<E extends Comparable<E>> {
         return (index - 1) / 2;
     }
 
-    // 返回完全二叉树的数组表示中 (从索引 0 开始表示第一个节点), 一个索引所表示的元素的左孩子节点的索引
+    // 返回 array (完全二叉树) 的数组表示中 (从索引 0 开始表示第一个节点), 一个索引所表示的元素的左孩子节点的索引
     private int leftChildIndex(int index) {
         return 2 * index + 1;
     }
 
-    // 返回完全二叉树的数组表示中 (从索引 0 开始表示第一个节点), 一个索引所表示的元素的右孩子节点的索引
+    // 返回 array (完全二叉树) 的数组表示中 (从索引 0 开始表示第一个节点), 一个索引所表示的元素的右孩子节点的索引
     private int rightChildIndex(int index) {
         return 2 * index + 2;
     }

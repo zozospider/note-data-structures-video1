@@ -74,6 +74,60 @@ public class SegmentTree<E> {
         return data[index];
     }
 
+    public E query(int queryBeginIndex, int queryEndIndex) {
+
+        if (queryBeginIndex < 0 || queryBeginIndex >= data.length
+                || queryEndIndex < 0 || queryEndIndex >= data.length
+                || queryBeginIndex > queryEndIndex) {
+            throw new IllegalArgumentException("Index is illegal.");
+        }
+
+        return query(0,
+                0, data.length - 1,
+                queryBeginIndex, queryEndIndex);
+    }
+
+    // 在以 treeIndex 为根的线段树 tree 中 [segmentBeginIndex ... segmentEndIndex] 的范围里, 搜索区间 [queryBeginIndex ... queryEndIndex] 的值
+    private E query(int treeIndex,
+                    int segmentBeginIndex, int segmentEndIndex,
+                    int queryBeginIndex, int queryEndIndex) {
+
+        // 递归终止
+        if (segmentBeginIndex == queryBeginIndex
+                && segmentEndIndex == queryEndIndex) {
+            return tree[treeIndex];
+        }
+
+        // 1. 确定左右子树在 tree 中的索引 (用于递归调用)
+        int treeLeftIndex = leftChildIndex(treeIndex);
+        int treeRightIndex = rightChildIndex(treeIndex);
+
+        // int segmentMiddleIndex = (segmentEndIndex + segmentBeginIndex) / 2;
+        int segmentMiddleIndex = segmentBeginIndex + (segmentEndIndex - segmentBeginIndex) / 2;
+
+        if (queryEndIndex <= segmentMiddleIndex) {
+            return query(treeLeftIndex,
+                    segmentBeginIndex, segmentMiddleIndex,
+                    queryBeginIndex, queryEndIndex);
+        }
+
+        if (queryBeginIndex >= (segmentMiddleIndex + 1)) {
+            return query(treeRightIndex,
+                    (segmentMiddleIndex + 1), segmentEndIndex,
+                    queryBeginIndex, queryEndIndex);
+        }
+
+        E left = query(treeLeftIndex,
+                segmentBeginIndex, segmentMiddleIndex,
+                queryBeginIndex, segmentMiddleIndex);
+
+        E right = query(treeRightIndex,
+                (segmentMiddleIndex + 1), segmentEndIndex,
+                (segmentMiddleIndex + 1), queryEndIndex);
+
+        return merger.merge(left, right);
+    }
+
     // 返回 tree (完全二叉树 / 满二叉树) 的数组表示中 (从索引 0 开始表示第一个节点), 一个索引所表示的元素的左孩子节点的索引
     private int leftChildIndex(int index) {
         return 2 * index + 1;

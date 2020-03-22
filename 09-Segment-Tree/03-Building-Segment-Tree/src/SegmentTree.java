@@ -13,6 +13,7 @@ public class SegmentTree<E> {
     public SegmentTree(E[] arr, Merger<E> merger) {
 
         // 初始化 data 和 tree
+
         data = (E[]) new Object[arr.length];
         for (int i = 0; i < arr.length; i++) {
             data[i] = arr[i];
@@ -20,8 +21,10 @@ public class SegmentTree<E> {
         tree = (E[]) new Object[4 * arr.length];
 
         // 构建线段树
+
         this.merger = merger;
-        buildTree(0, 0, data.length - 1);
+        // 在线段树 tree 中的 0 索引位置创建表示 (区间 / 合并元素) [0 ... (data.length - 1)] 的线段树
+        buildTree(0, 0, (data.length - 1));
     }
 
     // 在线段树 tree 中的 treeIndex 索引位置创建表示 (区间 / 合并元素) [segmentBeginIndex ... segmentEndIndex] 的线段树 (包括递归创建其子线段树) (建议画图帮助理解)

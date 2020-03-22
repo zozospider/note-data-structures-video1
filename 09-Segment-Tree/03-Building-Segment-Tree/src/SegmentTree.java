@@ -84,5 +84,25 @@ public class SegmentTree<E> {
         return 2 * index + 2;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("SegmentTree{");
+        builder.append("tree=[");
+        for (int i = 0; i < tree.length; i++) {
+            if (tree[i] != null) {
+                builder.append(tree[i]);
+            } else {
+                builder.append("null");
+            }
+            if (i != (tree.length - 1)) {
+                builder.append(", ");
+            }
+        }
+        builder.append("]");
+        builder.append("}");
+        return builder.toString();
+    }
+
 }
 

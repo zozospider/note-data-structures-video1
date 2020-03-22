@@ -1,11 +1,8 @@
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Solution {
 
-    // 可比较的元素对象, 存储元素值和其出现的频次 (按照出现的频次从小到大排序)
+    // 可比较的元素对象, 存储元素值和其出现的频次 (按照出现的频次从大到小排序)
     private class Element implements Comparable<Element> {
 
         // 元素值
@@ -18,16 +15,17 @@ public class Solution {
             this.frequency = frequency;
         }
 
-        // 按照出现的频次 frequency 从小到大排列 (频次最小的元素优先级最高)
+        // 按照出现的频次 frequency 从大到小排列 (频次最大的元素优先级最高)
         @Override
         public int compareTo(Element element) {
-            if (this.frequency < element.frequency) {
+            if (this.frequency > element.frequency) {
                 return 1;
             } else if (this.frequency == element.frequency) {
                 return 0;
             } else {
                 return -1;
             }
+            // return this.frequency - element.frequency;
         }
     }
 
@@ -43,8 +41,8 @@ public class Solution {
             }
         }
 
-        // 遍历 map, 将 map 中的元素和其出现的频次加入到优先队列中 (最大堆: 优先级最高的 (即频次最小的) 在最上面)
-        Queue<Element> priorityQueue = new MaxHeapPriorityQueue<>();
+        // 遍历 map, 将 map 中的元素和其出现的频次加入到优先队列中 (最小堆: 优先级最低的 (即频次最小的) 在最上面)
+        Queue<Element> priorityQueue = new PriorityQueue<>();
 
         // 遍历 map 所有数据, 加入到优先队列中 (队列中存储 k 个频次最小的元素)
         for (int key : map.keySet()) {
@@ -52,10 +50,10 @@ public class Solution {
             // 获取当前频次
             int frequency = map.get(key);
 
-            if (priorityQueue.getSize() < k) {
+            if (priorityQueue.size() < k) {
 
                 // 如果优先队列中还不足 k 个元素, 则填满优先队列
-                priorityQueue.enqueue(new Element(key, frequency));
+                priorityQueue.add(new Element(key, frequency));
 
             } else {
 
@@ -63,12 +61,13 @@ public class Solution {
 
                 // 如果当前元素的频次大于优先队列中的最小频次, 则需要将优先队列中的最小频次元素替换成当前元素
 
-                if (frequency > priorityQueue.getFront().frequency) {
+                if (priorityQueue.peek() != null
+                        && frequency > priorityQueue.peek().frequency) {
 
                     // 将优先队列中的最小频次元素出队
-                    priorityQueue.dequeue();
+                    priorityQueue.remove();
                     // 将当前元素入队
-                    priorityQueue.enqueue(new Element(key, frequency));
+                    priorityQueue.add(new Element(key, frequency));
                 }
             }
         }
@@ -77,7 +76,7 @@ public class Solution {
         // 转换成 list 返回
         List<Integer> keyList = new LinkedList<>();
         while (!priorityQueue.isEmpty()) {
-            keyList.add(priorityQueue.dequeue().element);
+            keyList.add(priorityQueue.remove().element);
         }
         return keyList;
     }

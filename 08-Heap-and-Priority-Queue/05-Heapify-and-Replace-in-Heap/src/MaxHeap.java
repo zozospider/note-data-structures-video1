@@ -107,7 +107,7 @@ public class MaxHeap<E extends Comparable<E>> {
     // 上浮操作: 将 index 所在的节点不断上浮, 直到满足堆结构的规则 (即 index 所在的节点值小于等于 index 所在节点的父节点值)
     private void siftUp(int index) {
 
-        // 如果 index 大于 0, 说明节点存在, 继续上浮循环
+        // 如果 index 大于 0, 说明节点存在且为非顶部节点, 继续上浮循环
         while (index > 0) {
 
             // 先求出当前 index 节点的父节点的索引
@@ -132,7 +132,7 @@ public class MaxHeap<E extends Comparable<E>> {
     // 下沉操作: 将 index 所在的节点不断下沉, 直到满足堆结构的规则 (即 index 所在的节点值大于等于 index 所在节点的孩子节点值)
     private void siftDown(int index) {
 
-        // 如果 index 左孩子小于数组长度, 说明节点存在, 继续下沉循环
+        // 如果 index 左孩子小于数组长度, 说明节点和其左孩子都存在, 继续下沉循环
         while (leftChildIndex(index) < array.getSize()) {
 
             // 先求出当前 index 节点的左孩子和右孩子中, 值更大的孩子节点的索引
@@ -157,10 +157,11 @@ public class MaxHeap<E extends Comparable<E>> {
     // 获取当前节点的左孩子和右孩子中, 值更大的孩子节点的索引
     private int getLargerChildIndex(int index) {
 
+        // 求出左孩子和右孩子 (while 循环条件已确保左孩子一定存在, 但右孩子可能不存在)
         int left = leftChildIndex(index);
         int right = rightChildIndex(index);
 
-        // 如果右孩子存在 (则左孩子一定存在), 且右孩子大于左孩子, 则返回右孩子
+        // 如果右孩子存在, 且右孩子大于左孩子, 则返回右孩子
         if (right < array.getSize()
                 && array.get(right).compareTo(array.get(left)) >= 0) {
             return right;

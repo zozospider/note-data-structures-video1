@@ -33,7 +33,7 @@ public class MaxHeap<E extends Comparable<E>> {
     // 上浮操作: 将 index 所在的节点不断上浮, 直到满足堆结构的规则 (即 index 所在的节点值小于等于 index 所在节点的父节点值)
     private void siftUp(int index) {
 
-        // 如果 index 大于 0, 说明节点存在, 继续上浮循环
+        // 如果 index 大于 0, 说明节点存在且为非顶部节点, 继续上浮循环
         while (index > 0) {
 
             // 先求出当前 index 节点的父节点的索引

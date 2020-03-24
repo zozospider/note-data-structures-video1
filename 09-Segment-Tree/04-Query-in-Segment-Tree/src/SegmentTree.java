@@ -32,7 +32,8 @@ public class SegmentTree<E> {
     // treeIndex: 当前 E 在线段树 tree 中的索引位置
     // segmentBeginIndex: 当前 E 的区间开始位置在 data 中的索引位置
     // segmentEndIndex: 当前 E 的区间结束位置在 data 中的索引位置
-    private void buildTree(int treeIndex, int segmentBeginIndex, int segmentEndIndex) {
+    private void buildTree(int treeIndex,
+                           int segmentBeginIndex, int segmentEndIndex) {
 
         // 递归终止
         // 如果当前 E 的开始索引和结束索引相等, 则说明已经到了线段树 tree 的最下层, 对 E 进行赋值
@@ -55,8 +56,10 @@ public class SegmentTree<E> {
         // 3. 递归调用 (左右子树)
         // 在线段树 tree 中的 treeLeftIndex (treeIndex 的左孩子) 的索引位置创建表示区间 [segmentBeginIndex ... segmentMiddleIndex] 的线段树
         // 在线段树 tree 中的 treeRightIndex (treeIndex 的右孩子) 的索引位置创建表示区间 [(segmentMiddleIndex + 1) ... segmentEndIndex] 的线段树
-        buildTree(treeLeftIndex, segmentBeginIndex, segmentMiddleIndex);
-        buildTree(treeRightIndex, (segmentMiddleIndex + 1), segmentEndIndex);
+        buildTree(treeLeftIndex,
+                segmentBeginIndex, segmentMiddleIndex);
+        buildTree(treeRightIndex,
+                (segmentMiddleIndex + 1), segmentEndIndex);
 
         // 4. 求出当前 E 的值 (因为当前值依赖子树值, 所以需要先执行第 1, 2, 3 步, 再执行第 4 步)
         // 在线段树 tree 中, 当前 E 的值等于合并其左右孩子 E 后的值
@@ -146,9 +149,9 @@ public class SegmentTree<E> {
         }
 
         // b. 否则, 说明要搜索的区域既包括在当前 E 的左子树的一部分区间中, 也包括在当前 E 的右子树的一部分区间中. 此时, 需要递归求出左子树和右子树的搜索值, 然后返回两个搜索值的合并值
-        // 此时左子树的搜索区间为: [segmentBeginIndex ... segmentMiddleIndex]
+        // 此时左子树的搜索区间为: [queryBeginIndex ... segmentMiddleIndex]
         // 此时右子树的搜索区间为: [(segmentMiddleIndex + 1) ... queryEndIndex]
-        // 此时左右子树的搜索区间结合后为: [segmentBeginIndex ... queryEndIndex]
+        // 此时左右子树的搜索区间结合后为: [queryBeginIndex ... queryEndIndex]
 
         // 递归调用 (左子树) (递归求出当前 E 的左子树的搜索值)
         // 在以  treeLeftIndex (treeIndex 的左孩子) 索引为根的线段树 tree 中 [segmentBeginIndex ... segmentMiddleIndex] 的范围里, 搜索区间 [queryBeginIndex ... segmentMiddleIndex] 的值

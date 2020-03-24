@@ -28,13 +28,15 @@ public class SegmentTree<E> {
     }
 
     // 在线段树 tree 中的 treeIndex 索引位置创建表示 (区间 / 合并元素) [segmentBeginIndex ... segmentEndIndex] 的线段树 (包括递归创建其子线段树) (建议画图帮助理解)
-    // treeIndex: 当前 (区间 / 合并元素) 在线段树 tree 中的索引位置
-    // segmentBeginIndex: 当前 (区间 / 合并元素) 的开始位置在 data 中的索引位置
-    // segmentEndIndex: 当前 (区间 / 合并元素) 的结束位置在 data 中的索引位置
-    private void buildTree(int treeIndex, int segmentBeginIndex, int segmentEndIndex) {
+    // 注: 用 E 表示当前节点 (区间 / 合并元素)
+    // treeIndex: 当前 E 在线段树 tree 中的索引位置
+    // segmentBeginIndex: 当前 E 的区间开始位置在 data 中的索引位置
+    // segmentEndIndex: 当前 E 的区间结束位置在 data 中的索引位置
+    private void buildTree(int treeIndex,
+                           int segmentBeginIndex, int segmentEndIndex) {
 
         // 递归终止
-        // 如果当前 (区间 / 合并元素) 的开始索引和结束索引相等, 则说明已经到了线段树 tree 的最下层
+        // 如果当前 E 的开始索引和结束索引相等, 则说明已经到了线段树 tree 的最下层, 对 E 进行赋值
         if (segmentBeginIndex == segmentEndIndex) {
             tree[treeIndex] = data[segmentBeginIndex];
             return;
@@ -54,11 +56,13 @@ public class SegmentTree<E> {
         // 3. 递归调用 (左右子树)
         // 在线段树 tree 中的 treeLeftIndex (treeIndex 的左孩子) 的索引位置创建表示区间 [segmentBeginIndex ... segmentMiddleIndex] 的线段树
         // 在线段树 tree 中的 treeRightIndex (treeIndex 的右孩子) 的索引位置创建表示区间 [(segmentMiddleIndex + 1) ... segmentEndIndex] 的线段树
-        buildTree(treeLeftIndex, segmentBeginIndex, segmentMiddleIndex);
-        buildTree(treeRightIndex, (segmentMiddleIndex + 1), segmentEndIndex);
+        buildTree(treeLeftIndex,
+                segmentBeginIndex, segmentMiddleIndex);
+        buildTree(treeRightIndex,
+                (segmentMiddleIndex + 1), segmentEndIndex);
 
-        // 4. 求出当前 (区间 / 合并元素) 的值 (因为当前值依赖子树值, 所以需要先执行第 1, 2, 3 步, 再执行第 4 步)
-        // 在线段树 tree 中, 当前 (区间 / 合并元素) 的值等于合并其左右孩子 (区间 / 合并元素) 后的值
+        // 4. 求出当前 E 的值 (因为当前值依赖子树值, 所以需要先执行第 1, 2, 3 步, 再执行第 4 步)
+        // 在线段树 tree 中, 当前 E 的值等于合并其左右孩子 E 后的值
         tree[treeIndex] = merger.merge(tree[leftChildIndex(treeIndex)], tree[rightChildIndex(treeIndex)]);
     }
 

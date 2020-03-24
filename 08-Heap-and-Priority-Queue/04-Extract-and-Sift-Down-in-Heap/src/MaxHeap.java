@@ -85,10 +85,10 @@ public class MaxHeap<E extends Comparable<E>> {
         // 如果 index 左孩子小于数组长度, 说明节点存在, 继续下沉循环
         while (leftChildIndex(index) < array.getSize()) {
 
-            // 先求出当前 index 节点的左右孩子节点中更大值的孩子索引
-            int childIndex = getLargerChildIndex(leftChildIndex(index), rightChildIndex(index));
+            // 先求出当前 index 节点的左孩子和右孩子中, 值更大的孩子节点的索引
+            int largerChildIndex = getLargerChildIndex(index);
 
-            if (array.get(index).compareTo(array.get(childIndex)) >= 0) {
+            if (array.get(index).compareTo(array.get(largerChildIndex)) >= 0) {
 
                 // 如果当前 index 节点值大于等于更大的孩子节点值, 则表示已经符合堆结构, 结束下沉循环
                 break;
@@ -98,14 +98,17 @@ public class MaxHeap<E extends Comparable<E>> {
                 // 否则说明当前 index 节点值小于其更大的孩子节点值 (不符合堆结构)
                 // 交换 index 和其更大的孩子节点的元素, 并继续下沉循环
 
-                array.swap(index, childIndex);
-                index = childIndex;
+                array.swap(index, largerChildIndex);
+                index = largerChildIndex;
             }
         }
     }
 
-    // 获取左右孩子索引对应的节点中, 更大值的孩子索引
-    private int getLargerChildIndex(int left, int right) {
+    // 获取当前节点的左孩子和右孩子中, 值更大的孩子节点的索引
+    private int getLargerChildIndex(int index) {
+
+        int left = leftChildIndex(index);
+        int right = rightChildIndex(index);
 
         // 如果右孩子存在 (则左孩子一定存在), 且右孩子大于左孩子, 则返回右孩子
         if (right < array.getSize()

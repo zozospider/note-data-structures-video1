@@ -20,7 +20,7 @@ public class MaxHeap<E extends Comparable<E>> {
         // 从完全二叉树的最后一个节点的父节点开始, 依次往前遍历, 直到第顶部节点
         // 每次循环都对当前索引执行下沉操作
         int startIndex = parentIndex(array.getSize() - 1);
-        for (int i = startIndex; i > 0; i--) {
+        for (int i = startIndex; i >= 0; i--) {
             siftDown(i);
         }
     }

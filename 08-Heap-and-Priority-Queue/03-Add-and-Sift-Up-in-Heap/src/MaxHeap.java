@@ -36,18 +36,21 @@ public class MaxHeap<E extends Comparable<E>> {
         // 如果 index 大于 0, 说明节点存在, 继续上浮循环
         while (index > 0) {
 
-            if (array.get(index).compareTo(array.get(parentIndex(index))) <= 0) {
+            // 先求出当前 index 节点的父节点的索引
+            int parentIndex = parentIndex(index);
 
-                // 如果 index 节点值小于等于父节点值, 则表示已经符合堆结构, 结束上浮循环
+            if (array.get(index).compareTo(array.get(parentIndex)) <= 0) {
+
+                // 如果当前 index 节点值小于等于父节点值, 则表示已经符合堆结构, 结束上浮循环
                 break;
 
             } else {
 
-                // 否则说明 index 节点值大于 index 父节点值 (不符合堆结构)
+                // 否则说明当前 index 节点值大于其父节点值 (不符合堆结构)
                 // 交换 index 和其父节点的元素, 并继续上浮循环
 
-                array.swap(index, parentIndex(index));
-                index = parentIndex(index);
+                array.swap(index, parentIndex);
+                index = parentIndex;
             }
         }
     }

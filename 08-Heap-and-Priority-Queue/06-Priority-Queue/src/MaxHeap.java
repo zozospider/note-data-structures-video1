@@ -110,18 +110,21 @@ public class MaxHeap<E extends Comparable<E>> {
         // 如果 index 大于 0, 说明节点存在, 继续上浮循环
         while (index > 0) {
 
-            if (array.get(index).compareTo(array.get(parentIndex(index))) <= 0) {
+            // 先求出当前 index 节点的父节点的索引
+            int parentIndex = parentIndex(index);
 
-                // 如果 index 节点值小于等于父节点值, 则表示已经符合堆结构, 结束上浮循环
+            if (array.get(index).compareTo(array.get(parentIndex)) <= 0) {
+
+                // 如果当前 index 节点值小于等于父节点值, 则表示已经符合堆结构, 结束上浮循环
                 break;
 
             } else {
 
-                // 否则说明 index 节点值大于 index 父节点值 (不符合堆结构)
+                // 否则说明当前 index 节点值大于其父节点值 (不符合堆结构)
                 // 交换 index 和其父节点的元素, 并继续上浮循环
 
-                array.swap(index, parentIndex(index));
-                index = parentIndex(index);
+                array.swap(index, parentIndex);
+                index = parentIndex;
             }
         }
     }
@@ -132,21 +135,21 @@ public class MaxHeap<E extends Comparable<E>> {
         // 如果 index 左孩子小于数组长度, 说明节点存在, 继续下沉循环
         while (leftChildIndex(index) < array.getSize()) {
 
-            // 先求出 index 节点的左右孩子节点中更大值的孩子索引
-            int child = getLargerChildIndex(leftChildIndex(index), rightChildIndex(index));
+            // 先求出当前 index 节点的左右孩子节点中更大值的孩子索引
+            int childIndex = getLargerChildIndex(leftChildIndex(index), rightChildIndex(index));
 
-            if (array.get(index).compareTo(array.get(child)) >= 0) {
+            if (array.get(index).compareTo(array.get(childIndex)) >= 0) {
 
-                // 如果 index 节点值大于等于更大的孩子节点值, 则表示已经符合堆结构, 结束下沉循环
+                // 如果当前 index 节点值大于等于更大的孩子节点值, 则表示已经符合堆结构, 结束下沉循环
                 break;
 
             } else {
 
-                // 否则说明 index 节点值小于更大的孩子节点值 (不符合堆结构)
+                // 否则说明当前 index 节点值小于其更大的孩子节点值 (不符合堆结构)
                 // 交换 index 和其更大的孩子节点的元素, 并继续下沉循环
 
-                array.swap(index, child);
-                index = child;
+                array.swap(index, childIndex);
+                index = childIndex;
             }
         }
     }

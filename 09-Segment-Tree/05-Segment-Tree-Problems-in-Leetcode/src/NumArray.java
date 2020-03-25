@@ -3,6 +3,7 @@ public class NumArray {
     // 内部用线段树来存储数据
     private SegmentTree<Integer> segmentTree;
 
+    // 初始化 segmentTree
     public NumArray(int[] nums) {
 
         if (nums.length > 0) {
@@ -18,6 +19,7 @@ public class NumArray {
         }
     }
 
+    // 求区间和
     public int sumRange(int i, int j) {
 
         if (segmentTree == null) {

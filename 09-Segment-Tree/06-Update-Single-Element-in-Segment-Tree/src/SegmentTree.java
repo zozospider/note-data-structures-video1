@@ -10,6 +10,7 @@ public class SegmentTree<E> {
     private Merger<E> merger;
 
     // 传入一个数组, 构造当前线段树
+    // 时间复杂度: TODO
     public SegmentTree(E[] arr, Merger<E> merger) {
 
         // 初始化 data 和 tree
@@ -67,11 +68,13 @@ public class SegmentTree<E> {
     }
 
     // 获取元素个数
+    // 时间复杂度: O(1)
     public int getSize() {
         return data.length;
     }
 
     // 获取 index 索引位置的元素
+    // 时间复杂度: O(1)
     public E get(int index) {
 
         if (index < 0 || index >= data.length) {
@@ -82,6 +85,7 @@ public class SegmentTree<E> {
     }
 
     // 返回区间 [queryBeginIndex ... queryEndIndex] 的值
+    // 时间复杂度: O(log n)
     public E query(int queryBeginIndex, int queryEndIndex) {
 
         if (queryBeginIndex < 0 || queryBeginIndex >= data.length
@@ -170,14 +174,17 @@ public class SegmentTree<E> {
     }
 
     // 将 index 位置的值, 更新为 e
+    // 时间复杂度: O(log n)
     public void set(int index, E e) {
 
         if (index < 0 || index >= data.length + 1) {
             throw new IllegalArgumentException("Index is illegal.");
         }
 
+        // 更新 data 中索引为 index 的值为 e
         data[index] = e;
 
+        // 在以 0 索引为根的线段树 tree 中 [0 ... (data.length - 1)] 的范围里, 更新 index 的值为 e
         set(0,
                 0, (data.length - 1),
                 index, e);

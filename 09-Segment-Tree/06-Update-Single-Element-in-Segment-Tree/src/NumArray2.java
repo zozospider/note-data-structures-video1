@@ -1,47 +1,47 @@
 public class NumArray2 {
 
-    // 存储数组前 n 个数的和 (n 从 0 开始)
-    // sum[0] = nums[0];
-    // sum[1] = nums[0] + nums[1];
-    // sum[2] = nums[0] + nums[1] + nums[2];
-    private int[] sum;
+    // 内部用线段树来存储数据
+    private SegmentTree<Integer> segmentTree;
 
-    // 初始化 sum
-    // 时间复杂度: O(n)
+    // 初始化 segmentTree
+    // 时间复杂度: TODO
     public NumArray2(int[] nums) {
 
-        if (nums != null && nums.length > 0) {
+        if (nums.length > 0) {
 
-            // 初始化 sum (需要单独处理索引为 0 的情况)
-            sum = new int[nums.length];
+            Integer[] integers = new Integer[nums.length];
             for (int i = 0; i < nums.length; i++) {
-                if (i == 0) {
-                    sum[i] = nums[i];
-                } else {
-                    sum[i] = sum[i - 1] + nums[i];
-                }
+                integers[i] = nums[i];
             }
+
+            // 初始化线段树 (合并方式为两个数字的和)
+            // segmentTree = new SegmentTree<>(integers, (i1, i2) -> i1 + i2);
+            segmentTree = new SegmentTree<>(integers, Integer::sum);
         }
     }
 
+    // 将索引 i 位置的值, 更新为 val
+    // 时间复杂度: O(log n)
     public void update(int i, int val) {
 
+        if (segmentTree == null) {
+            throw new IllegalArgumentException("Segment Tree is null.");
+        }
+
+        // 将线段树 i 位置的值, 更新为 e
+        segmentTree.set(i, val);
     }
 
     // 求区间和
-    // 时间复杂度: O(1)
+    // 时间复杂度: O(log n)
     public int sumRange(int i, int j) {
 
-        if (sum == null) {
-            throw new IllegalArgumentException("sum is null.");
+        if (segmentTree == null) {
+            throw new IllegalArgumentException("Segment Tree is null.");
         }
 
-        // 需要单独处理索引为 0 的情况
-        if (i == 0) {
-            return sum[j];
-        } else {
-            return sum[j] - sum[i - 1];
-        }
+        // 返回线段树区间查询结果 (两个数字的和)
+        return segmentTree.query(i, j);
     }
 
 }

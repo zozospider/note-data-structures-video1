@@ -10,6 +10,13 @@ public class Main {
         System.out.println(segmentTree.query(0, 2));
         System.out.println(segmentTree.query(0, 5));
         System.out.println(segmentTree.query(2, 5));
+
+        segmentTree.set(1, 1);
+
+        System.out.println(segmentTree);
+        System.out.println(segmentTree.query(0, 2));
+        System.out.println(segmentTree.query(0, 5));
+        System.out.println(segmentTree.query(2, 5));
     }
 
 }

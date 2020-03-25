@@ -18,7 +18,28 @@
 public class LeetCode307 {
 
     public static void main(String[] args) {
+        main1();
+        main2();
+    }
 
+    private static void main1() {
+
+        int[] nums = {1, 3, 5};
+        NumArray numArray = new NumArray(nums);
+
+        System.out.println(numArray.sumRange(0, 2));
+        numArray.update(1, 2);
+        System.out.println(numArray.sumRange(0, 2));
+    }
+
+    private static void main2() {
+
+        int[] nums = {1, 3, 5};
+        NumArray2 numArray2 = new NumArray2(nums);
+
+        System.out.println(numArray2.sumRange(0, 2));
+        numArray2.update(1, 2);
+        System.out.println(numArray2.sumRange(0, 2));
     }
 
 }

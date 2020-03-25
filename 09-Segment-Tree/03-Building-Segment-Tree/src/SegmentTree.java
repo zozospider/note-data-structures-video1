@@ -63,7 +63,7 @@ public class SegmentTree<E> {
 
         // 4. 求出当前 E 的值 (因为当前值依赖子树值, 所以需要先执行第 1, 2, 3 步, 再执行第 4 步)
         // 在线段树 tree 中, 当前 E 的值等于合并其左右孩子 E 后的值
-        tree[treeIndex] = merger.merge(tree[leftChildIndex(treeIndex)], tree[rightChildIndex(treeIndex)]);
+        tree[treeIndex] = merger.merge(tree[treeLeftIndex], tree[treeRightIndex]);
     }
 
     // 获取元素个数

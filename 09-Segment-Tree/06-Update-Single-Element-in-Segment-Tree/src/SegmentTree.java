@@ -63,7 +63,7 @@ public class SegmentTree<E> {
 
         // 4. 求出当前 E 的值 (因为当前值依赖子树值, 所以需要先执行第 1, 2, 3 步, 再执行第 4 步)
         // 在线段树 tree 中, 当前 E 的值等于合并其左右孩子 E 后的值
-        tree[treeIndex] = merger.merge(tree[leftChildIndex(treeIndex)], tree[rightChildIndex(treeIndex)]);
+        tree[treeIndex] = merger.merge(tree[treeLeftIndex], tree[treeRightIndex]);
     }
 
     // 获取元素个数
@@ -176,6 +176,8 @@ public class SegmentTree<E> {
             throw new IllegalArgumentException("Index is illegal.");
         }
 
+        data[index] = e;
+
         set(0,
                 0, (data.length - 1),
                 index, e);
@@ -192,6 +194,54 @@ public class SegmentTree<E> {
                      int segmentBeginIndex, int segmentEndIndex,
                      int index, E e) {
 
+        // 递归终止
+        // 如果当前 E 的开始索引和结束索引相等, 则说明已经到了线段树 tree 的最下层, 且为要设置的 index 索引位置, 更新当前索引值
+        if (segmentBeginIndex == segmentEndIndex) {
+            // 同时也满足条件: segmentBeginIndex == segmentEndIndex == index
+            // tree[treeIndex] = e;
+            // tree[treeIndex] = data[index];
+            tree[treeIndex] = data[segmentBeginIndex];
+            return;
+        }
+
+        // 1. 确定左右子树在 tree 中的索引 (用于递归调用)
+        int treeLeftIndex = leftChildIndex(treeIndex);
+        int treeRightIndex = rightChildIndex(treeIndex);
+
+        // 2. 确定左右子树的开始位置和结束位置在 data 中的索引位置 (用于递归调用)
+        // 求出中间位置即可:
+        // a. 求出中间位置后, 左子树区间在 data 中的索引位置为: [segmentBeginIndex - segmentMiddleIndex]
+        // b. 求出中间位置后, 右子树区间在 data 中的索引位置为: [(segmentMiddleIndex + 1), segmentEndIndex]
+        // int segmentMiddleIndex = (segmentEndIndex + segmentBeginIndex) / 2;
+        int segmentMiddleIndex = segmentBeginIndex + (segmentEndIndex - segmentBeginIndex) / 2;
+
+        // 3. 递归调用 (左子树 / 右子树)
+
+        // a. 如果要设置的索引在当前 E 的某一个方向的子树 (左子树 / 右子树) 中, 则递归设置子树 (左子树 / 右子树) 中 index 的值
+
+        if (index <= segmentMiddleIndex) {
+
+            // 如果要设置的索引在当前 E 的区间中间位置的左边, 说明要搜索的区间在左子树中
+            // 递归调用 (左子树)
+            // 在以 treeLeftIndex (treeIndex 的左孩子) 索引为根的线段树 tree 中 [segmentBeginIndex ... segmentMiddleIndex] 的范围里, 更新 index 的值为 e
+            set(treeLeftIndex,
+                    segmentBeginIndex, segmentMiddleIndex,
+                    index, e);
+
+        } else { // index > segmentMiddleIndex + 1
+
+            // 如果要设置的索引在当前 E 的区间中间位置的右边, 说明要搜索的区间在右子树中
+            // 递归调用 (右子树)
+            // 在以 treeRightIndex (treeIndex 的右孩子) 索引为根的线段树 tree 中 [(segmentMiddleIndex + 1) ... segmentEndIndex] 的范围里, 更新 index 的值为 e
+            set(treeRightIndex,
+                    (segmentMiddleIndex + 1), segmentEndIndex,
+                    index, e);
+        }
+
+        // 4. 由于父节点值依赖子树值, 子树值发生变化时, 父节点值也需要更新
+        // 求出当前 E 的值 (因为当前值依赖子树值, 所以需要先执行第 1, 2, 3 步, 再执行第 4 步)
+        // 在线段树 tree 中, 当前 E 的值等于合并其左右孩子 E 后的值
+        tree[treeIndex] = merger.merge(tree[treeLeftIndex], tree[treeRightIndex]);
     }
 
     // 返回 tree (完全二叉树 / 满二叉树) 的数组表示中 (从索引 0 开始表示第一个节点), 一个索引所表示的元素的左孩子节点的索引

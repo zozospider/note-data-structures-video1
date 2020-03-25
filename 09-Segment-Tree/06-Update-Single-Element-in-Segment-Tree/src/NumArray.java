@@ -20,6 +20,11 @@ public class NumArray {
         }
     }
 
+    // 更新
+    public void update(int i, int val) {
+
+    }
+
     // 求区间和
     // 时间复杂度: O(log n)
     public int sumRange(int i, int j) {

@@ -13,7 +13,8 @@ public class NumArray {
             }
 
             // 初始化线段树 (合并方式为两个数字的和)
-            segmentTree = new SegmentTree<>(integers, (i1, i2) -> i1 + i2);
+            // segmentTree = new SegmentTree<>(integers, (i1, i2) -> i1 + i2);
+            segmentTree = new SegmentTree<>(integers, Integer::sum);
         }
     }
 

@@ -5,12 +5,12 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // 随机生成 1 万个单词, 每个单词 3 个小写字母
+        // 随机生成 40 万个单词, 每个单词 1 至 5 个小写字母
         List<String> words = new ArrayList<>();
-        List<String> words1 = GeneralUtils.randomWords(1, 10_000);
-        List<String> words2 = GeneralUtils.randomWords(2, 10_000);
-        List<String> words3 = GeneralUtils.randomWords(3, 10_000);
-        List<String> words4 = GeneralUtils.randomWords(4, 10_000);
+        List<String> words1 = GeneralUtils.randomWords(1, 100_000);
+        List<String> words2 = GeneralUtils.randomWords(2, 100_000);
+        List<String> words3 = GeneralUtils.randomWords(3, 100_000);
+        List<String> words4 = GeneralUtils.randomWords(5, 100_000);
         words.addAll(words1);
         words.addAll(words2);
         words.addAll(words3);
@@ -26,6 +26,9 @@ public class Main {
         System.out.println("Total different words: " + bstSet.getSize());
         System.out.println("BSTSet words: " + bstTime + "ms");
 
+        // 时间复杂度 (此处忽略 Trie 内部使用的 TreeMap 的时间复杂度):
+        // add: O(m)
+        // contains: O(m)
         Set<String> trieSet = new TrieSet();
         long trieTime = testSet(trieSet, words);
         System.out.println("Total different words: " + trieSet.getSize());

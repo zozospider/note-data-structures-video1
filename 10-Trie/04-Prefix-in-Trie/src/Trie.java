@@ -1,3 +1,4 @@
+import java.util.Map;
 import java.util.TreeMap;
 
 public class Trie {
@@ -10,10 +11,11 @@ public class Trie {
         // 当前节点指向的下游节点的映射
         // key 为可标识下游某个节点的字母
         // value 为下游节点对象本身 (包含 isWord 和 next)
-        TreeMap<Character, Node> next;
+        Map<Character, Node> next;
 
         Node(boolean isWord) {
             this.isWord = isWord;
+            next = new TreeMap<>();
         }
 
         Node() {
@@ -38,6 +40,7 @@ public class Trie {
     }
 
     // 向 Trie 中添加一个单词 word
+    // 时间复杂度: O(m) (m 为单词字母个数) (此处忽略 Trie 内部使用的 TreeMap 的时间复杂度)
     public void add(String word) {
 
         // 用于记录某个节点, 在循环中实际操作的是 current.next (current 的下游某个节点)
@@ -68,6 +71,7 @@ public class Trie {
     }
 
     // 查询单词 word 是否在 Trie 中
+    // 时间复杂度: O(m) (m 为单词字母个数) (此处忽略 Trie 内部使用的 TreeMap 的时间复杂度)
     public boolean contains(String word) {
 
         // 用于记录某个节点, 在循环中实际操作的是 current.next (current 的下游某个节点)
@@ -95,6 +99,7 @@ public class Trie {
     }
 
     // 查询在 Trie 中是否有单词以 prefix 为前缀
+    // 时间复杂度: O(m) (m 为单词字母个数) (此处忽略 Trie 内部使用的 TreeMap 的时间复杂度)
     public boolean isPrefix(String prefix) {
 
         // 用于记录某个节点, 在循环中实际操作的是 current.next (current 的下游某个节点)

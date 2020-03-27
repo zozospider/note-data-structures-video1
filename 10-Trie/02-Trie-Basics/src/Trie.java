@@ -1,3 +1,4 @@
+import java.util.Map;
 import java.util.TreeMap;
 
 public class Trie {
@@ -10,10 +11,11 @@ public class Trie {
         // 当前节点指向的下游节点的映射
         // key 为可标识下游某个节点的字母
         // value 为下游节点对象本身 (包含 isWord 和 next)
-        TreeMap<Character, Node> next;
+        Map<Character, Node> next;
 
         Node(boolean isWord) {
             this.isWord = isWord;
+            next = new TreeMap<>();
         }
 
         Node() {

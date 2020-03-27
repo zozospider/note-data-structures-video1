@@ -70,27 +70,48 @@ public class WordDictionary {
 
     // 返回以 Node 节点为根的 Trie 中是否存在 word 中第 index 个字符及其之后的内容
     private boolean match(Node node, String word, int index) {
+
         // 递归终止
         // 如果 index 是 word 的最后一个字符, 说明 index 前面的字符都匹配成功了, 返回当前 Node 是否为某个单词 (该单词就是 word) 的最后一个字母
         if (index == word.length()) {
             return node.isWord;
         }
-        // 去除第 index 个字符
+
+        // 取出第 index 个字符
         char c = word.charAt(index);
 
         // 需要分开处理第 index 个字符是否为通用匹配符的情况
 
         if (c != '.') {
+            // 如果第 index 个字符不是通用匹配符
+
+            // 判断当前 Node 节点的下游节点中是否存在以 c 为 key 的 Node
+
             if (node.next.get(c) == null) {
+                // 递归终止
+                // 如果不存在, 则第 index 个字符匹配失败 (整个 word 也匹配失败), 终止递归
+                return false;
+
+            } else {
+                // 递归调用
+                // 如果存在, 则第 index 个字符匹配成功, 继续调用以 Node 的下游节点 (node.next.get(c)) 为根的的 Trie 中是否存在 word 中第 (index + 1) 个字符及其之后的内容
+                return match(node.next.get(c), word, (index + 1));
 
             }
-            return false;
         } else {
+            // 如果第 index 个字符是通用匹配符
+
+            // 则说明当前 Node 节点的所有下游节点都能成功匹配当前字符, 需要继续判断下一个 (index + 1) 字符是否匹配
+
+            // 因为当前 Node 节点的所有下游节点都满足继续匹配的条件, 所以只要有一个下游节点能成功匹配 word 中第 (index + 1) 个字符及其之后的内容即可
+
             for (char nextChar : node.next.keySet()) {
-                if (match(node.next.get(nextChar), word, index + 1)) {
+                if (match(node.next.get(nextChar), word, (index + 1))) {
                     return true;
                 }
             }
+
+            // 所有下游节点都不能匹配 word 中第 (index + 1) 个字符及其之后的内容, 则匹配失败
             return false;
         }
     }

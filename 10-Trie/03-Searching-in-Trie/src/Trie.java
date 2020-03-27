@@ -37,6 +37,11 @@ public class Trie {
         return size;
     }
 
+    // 获取 Trie 中的单词是否为空
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
     // 向 Trie 中添加一个单词 word
     public void add(String word) {
 

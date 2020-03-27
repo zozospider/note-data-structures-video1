@@ -33,6 +33,8 @@ public class Main {
         long trieTime = testSet(trieSet, words);
         System.out.println("Total different words: " + trieSet.getSize());
         System.out.println("TrieSet words: " + trieTime + "ms");
+
+        // 注: 由于 TrieSet 内部使用了 TreeMap, 所以实际运行效果可能无显著差异
     }
 
     private static long testSet(Set<String> set, List<String> words) {

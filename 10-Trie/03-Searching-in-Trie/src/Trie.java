@@ -67,4 +67,31 @@ public class Trie {
         }
     }
 
+    // 查询单词 word 是否在 Trie 中
+    public boolean contains(String word) {
+
+        // 用于记录某个节点, 在循环中实际操作的是 current.next (current 的下游某个节点)
+        Node current = root;
+
+        // 从 root 开始, 依次遍历 word 中的每个字母, 并判断字母对应的 Trie 中的节点是否存在, 如果不存在则返回 false
+        for (int i = 0; i < word.length(); i++) {
+
+            // 当前字母
+            char c = word.charAt(i);
+
+            // 判断 Trie 中的下游节点是否存在该字母 key
+            // 如果存在则说明当前字母已经在 Trie 中, 继续遍历下一个字母进行判断
+            // 如果不存在则返回 false
+            if (current.next.get(c) == null) {
+                return false;
+            }
+
+            // current 赋值为 next 下游中 key 为当前字母的节点
+            current = current.next.get(c);
+        }
+
+        // 如果遍历到最后一个字母都没有返回 false, 说明所有字母都存在于 Trie 中, 此时只需判断最后一个字母是否为 isWord
+        return current.isWord;
+    }
+
 }

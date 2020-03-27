@@ -17,10 +17,6 @@ public class Trie {
             this.isWord = isWord;
             next = new TreeMap<>();
         }
-
-        Node() {
-            this(false);
-        }
     }
 
     // 根节点, 该节点本身不代表任何字母
@@ -30,7 +26,7 @@ public class Trie {
     private int size;
 
     public Trie() {
-        root = new Node();
+        root = new Node(false);
         size = 0;
     }
 
@@ -61,7 +57,7 @@ public class Trie {
             // 如果存在则说明当前字母已经在 Trie 中, 不需要做任何处理
             // 如果不存在则创建下游节点 (由于是新创建的节点, 所以它的 next 为 null, isWord 在下面的逻辑赋值)
             if (current.next.get(c) == null) {
-                current.next.put(c, new Node());
+                current.next.put(c, new Node(false));
             }
 
             // current 赋值为 next 下游中 key 为当前字母的节点

@@ -1,7 +1,7 @@
 import java.util.Map;
 import java.util.TreeMap;
 
-public class Trie {
+public class WordDictionary {
 
     private class Node {
 
@@ -22,21 +22,18 @@ public class Trie {
     // 根节点, 该节点本身不代表任何字母
     private Node root;
 
-    // 当前 Trie 中的单词个数
-    private int size;
-
-    public Trie() {
+    /**
+     * Initialize your data structure here.
+     */
+    public WordDictionary() {
         root = new Node(false);
-        size = 0;
     }
 
-    // 获取 Trie 中的单词个数
-    public int getSize() {
-        return size;
-    }
-
+    /**
+     * Adds a word into the data structure.
+     */
     // 向 Trie 中添加一个单词 word
-    public void add(String word) {
+    public void addWord(String word) {
 
         // 用于记录某个节点, 在循环中实际操作的是 current.next (current 的下游某个节点)
         Node current = root;
@@ -61,7 +58,40 @@ public class Trie {
         // 如果遍历到的最后一个字母对应的节点已经标记为 isWord, 说明该单词已存在于 Trie 中, 不做任何处理, 否则设置为 isWord, 并将单词个数加 1
         if (!current.isWord) {
             current.isWord = true;
-            size++;
+        }
+    }
+
+    /**
+     * Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter.
+     */
+    public boolean search(String word) {
+        return match(root, word, 0);
+    }
+
+    // 返回以 Node 节点为根的 Trie 中是否存在 word 中第 index 个字符及其之后的内容
+    private boolean match(Node node, String word, int index) {
+        // 递归终止
+        // 如果 index 是 word 的最后一个字符, 说明 index 前面的字符都匹配成功了, 返回当前 Node 是否为某个单词 (该单词就是 word) 的最后一个字母
+        if (index == word.length()) {
+            return node.isWord;
+        }
+        // 去除第 index 个字符
+        char c = word.charAt(index);
+
+        // 需要分开处理第 index 个字符是否为通用匹配符的情况
+
+        if (c != '.') {
+            if (node.next.get(c) == null) {
+
+            }
+            return false;
+        } else {
+            for (char nextChar : node.next.keySet()) {
+                if (match(node.next.get(nextChar), word, index + 1)) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 

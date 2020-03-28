@@ -1,20 +1,20 @@
-public class UnionFind3 implements UF {
+public class UnionFind4 implements UF {
 
     // 用数组存储树中当前节点对应的父节点的集合编号 (建议画图帮助理解)
     private int[] parents;
 
-    // 用数组存储以当前节点为根的树的节点个数
-    private int[] sizes;
+    // 用数组存储以当前节点为根的树的层数
+    private int[] ranks;
 
-    public UnionFind3(int size) {
+    public UnionFind4(int size) {
 
         // 初始化的时候, 所有节点的父节点值 (索引的父节点对应的集合编号) 都指向自己, 所以其值为当前节点的索引值
-        // 所有节点都为独立的树, 每个树节点个数都为 1
+        // 所有节点都为独立的树, 每个树层树都为 1
         parents = new int[size];
-        sizes = new int[size];
+        ranks = new int[size];
         for (int i = 0; i < parents.length; i++) {
             parents[i] = i;
-            sizes[i] = 1;
+            ranks[i] = 1;
         }
     }
 
@@ -43,21 +43,25 @@ public class UnionFind3 implements UF {
         int qUnionId = find(q);
 
         // 如果集合编号相等则说明两个节点在同一个集合中 (在同一个树中), 不做任何处理
-        // 否则需要先比较 p 所在的树的节点个数和 q 所在的树的节点个数, 将节点个数小的树的根节点指向节点个数大的树的根节点
+        // 否则需要先比较 p 所在的树的层数和 q 所在的树的层数, 将层数小的树的根节点指向层数大的树的根节点
 
         if (pUnionId != qUnionId) {
 
-            if (sizes[qUnionId] <= sizes[pUnionId]) {
+            if (ranks[qUnionId] < ranks[pUnionId]) {
 
-                // 如果 q 所在的树的节点个数小于等于 p 所在的树的节点个数, 将 q 的根节点的父节点指向 p 的根节点, 并增加以 p 为根节点的树的节点个数
+                // 如果 q 所在的树的层数小于 p 所在的树的层数, 将 q 的根节点的父节点指向 p 的根节点 (树的层数无需修改, 因为合并后 p 和 q 的层数都没有变化)
                 parents[qUnionId] = pUnionId;
-                sizes[pUnionId] += sizes[qUnionId];
 
-            } else { // sizes[pUnionId] < sizes[qUnionId]
+            } else if (ranks[qUnionId] > ranks[pUnionId]) {
 
-                // 如果 p 所在的树的节点个数小于 q 所在的树的节点个数, 将 p 的根节点的父节点指向 q 的根节点, 并增加以 q 为根节点的树的节点个数
+                // 如果 p 所在的树的层数小于 q 所在的树的层数, 将 p 的根节点的父节点指向 q 的根节点 (树的层数无需修改, 因为合并后 p 和 q 的层数都没有变化)
                 parents[pUnionId] = qUnionId;
-                sizes[qUnionId] += sizes[pUnionId];
+
+            } else {
+
+                // 如果 q 所在的树的层数小于 p 所在的树的层数, 将 q 的根节点的父节点指向 p 的根节点, 并将以 p 为根节点的树的层数加 1 (合并后 p 的层数增加了 1)
+                parents[qUnionId] = pUnionId;
+                ranks[pUnionId] += 1;
             }
         }
     }

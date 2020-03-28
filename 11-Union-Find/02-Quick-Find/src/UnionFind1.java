@@ -17,6 +17,7 @@ public class UnionFind1 implements UF {
         }
     }
 
+    // 时间复杂度: O(1)
     @Override
     public int getSize() {
         return ids.length;
@@ -35,17 +36,7 @@ public class UnionFind1 implements UF {
         return find(p) == find(q);
     }
 
-    // 查找索引为 i 的元素所对应的集合编号
-    private int find(int i) {
-
-        if (i < 0 || i >= ids.length) {
-            throw new IllegalArgumentException("i is out of bound.");
-        }
-
-        return ids[i];
-    }
-
-    // 将两个元素进行合并
+    // 将两个元素进行合并 (合并到同一个集合)
     // 时间复杂度: O(n)
 
     // 示例:
@@ -89,6 +80,16 @@ public class UnionFind1 implements UF {
                 }
             }
         }
+    }
+
+    // 查找索引为 i 的元素所对应的集合编号
+    private int find(int i) {
+
+        if (i < 0 || i >= ids.length) {
+            throw new IllegalArgumentException("i is out of bound.");
+        }
+
+        return ids[i];
     }
 
 }

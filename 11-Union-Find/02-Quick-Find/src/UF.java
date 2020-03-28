@@ -6,7 +6,7 @@ public interface UF {
     // 返回两个元素是否连接 (是否属于同一个集合)
     boolean isConnected(int p, int q);
 
-    // 将两个元素进行合并
+    // 将两个元素进行合并 (合并到同一个集合)
     void unionElements(int p, int q);
 
 }

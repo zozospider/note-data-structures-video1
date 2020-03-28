@@ -45,7 +45,7 @@ public class Test {
 
     private static void main2() {
 
-        // UnionFind5 快于 UnionFind4 快于 UnionFind3
+        // UnionFind5 快于 UnionFind6 快于 UnionFind4 快于 UnionFind3 (UnionFind6 递归需要消耗一定资源, 所以通常比 UnionFind5 慢一点)
         int size = 2_000_000;
         int count = 2_000_000;
 
@@ -69,6 +69,13 @@ public class Test {
         UF uf5 = new UnionFind5(size);
         long uf5Time = testUF(uf5, count);
         System.out.println("UnionFind5 time: " + uf5Time + "ms");
+
+        // 时间复杂度:
+        // unionElements: O(h)
+        // isConnected: O(h)
+        UF uf6 = new UnionFind6(size);
+        long uf6Time = testUF(uf6, count);
+        System.out.println("UnionFind6 time: " + uf6Time + "ms");
     }
 
     private static long testUF(UF uf, int count) {

@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class AVLTree<K extends Comparable<K>, V> {
 
     // AVL 的节点
@@ -115,9 +118,9 @@ public class AVLTree<K extends Comparable<K>, V> {
         node.height = getMaxChildHeight(node) + 1;
 
         // 判断平衡因子
-        int absBalanceFactor = getAbsBalanceFactor(node);
-        if (absBalanceFactor > 1) {
-            System.out.println("unbalanced: " + absBalanceFactor);
+        int balanceFactor = getBalanceFactor(node);
+        if (balanceFactor > 1 && getBalanceFactor(node.left) <= 0) {
+
         }
 
         // 返回当前根节点
@@ -139,6 +142,62 @@ public class AVLTree<K extends Comparable<K>, V> {
 
         // 修改 Node 的 value
         node.value = value;
+    }
+
+    // 判断该二叉树是否是一棵二分搜索树
+    public boolean isBST() {
+
+        // 中序遍历当前树, 求出所有元素的 key, 如果所有 key 都是顺序的, 则说明当前树是二分搜索树, 否则不是二分搜索树
+        List<K> keys = new ArrayList<>();
+        inOrder(root, keys);
+        for (int i = 1; i < keys.size(); i++) {
+            if (keys.get(i - 1).compareTo(keys.get(i)) < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void inOrder(Node node, List<K> keys) {
+        if (node == null) {
+            return;
+        }
+        inOrder(node.left, keys);
+        keys.add(node.key);
+        inOrder(node.right, keys);
+    }
+
+    // 判断该二叉树是否是一棵平衡二叉树
+    public boolean isBalancedTree() {
+        return isBalancedTree(root);
+    }
+
+    // 判断以 node 为根的二叉树是否是一棵平衡二叉树
+    private boolean isBalancedTree(Node node) {
+
+        // 递归终止
+        // 节点为 null, 满足平衡二叉树条件
+        if (node == null) {
+            return true;
+        }
+
+        // 递归终止
+        // 平衡因子绝对值大于 1, 不满足平衡二叉树条件
+        if (getAbsBalanceFactor(node) > 1) {
+            return false;
+        }
+
+        // 否则说明当前节点满足平衡二叉树条件, 需要判断其子节点是否也满足平衡二叉树条件
+
+        // 递归调用
+        // 求出以 node 的左孩子为根的二叉树是否是一棵平衡二叉树
+        // 求出以 node 的右孩子为根的二叉树是否是一棵平衡二叉树
+        boolean leftChildBalanced = isBalancedTree(node.left);
+        boolean rightChildBalanced = isBalancedTree(node.right);
+
+        // 当 node 的左右孩子都为平衡二叉树时, 以 node 为根的二叉树才是一棵平衡二叉树
+        // 当 node 的左右孩子有一个不是平衡二叉树时, 以 node 为根的二叉树就不是一棵平衡二叉树
+        return leftChildBalanced && rightChildBalanced;
     }
 
     // 获取 key 对应的 Node

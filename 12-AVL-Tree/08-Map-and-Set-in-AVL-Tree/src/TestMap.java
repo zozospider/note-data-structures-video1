@@ -1,15 +1,24 @@
 import java.util.List;
 
-public class Test {
+public class TestMap {
 
     public static void main(String[] args) {
 
-        // 随机生成 100 万个单词, 每个单词 2 个小写字母
-        int charNumber = 2;
-        int max = 1_000_000;
+        // 随机生成 10 万个单词, 每个单词 2 个小写字母 (不同的测试参数对结果会有影响)
+        int charNumber = 100_000;
+        int max = 100_000;
 
-        List<String> words = GeneralUtils.randomWords(2, 1_000_000);
+        List<String> words = GeneralUtils.randomWords(charNumber, max);
         System.out.println("Total words: " + words.size());
+
+        // 时间复杂度:
+        // TODO
+        Map<String, Integer> avlMap = new AVLTreeMap<>();
+        long avlTime = testMap(avlMap, words);
+        System.out.println("Total different words: " + avlMap.getSize());
+        System.out.println("AVLMap time: " + avlTime + "ms");
+
+        System.out.println("------");
 
         // 时间复杂度:
         // TODO
@@ -26,6 +35,8 @@ public class Test {
         long linkedListTime = testMap(linkedListMap, words);
         System.out.println("Total different words: " + linkedListMap.getSize());
         System.out.println("LinkedListMap time: " + linkedListTime + "ms");
+
+        // 不同的测试参数对结果会有影响
     }
 
     private static long testMap(Map<String, Integer> map, List<String> words) {
@@ -42,6 +53,14 @@ public class Test {
                 int number = map.get(word);
                 map.set(word, (number + 1));
             }
+        }
+
+        for (String word : words) {
+            map.contains(word);
+        }
+
+        for (String word : words) {
+            map.remove(word);
         }
 
         // 记录结束时间 (单位: 毫秒)

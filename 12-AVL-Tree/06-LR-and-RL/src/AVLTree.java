@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class AVLTree<K extends Comparable<K>, V> {
 
     // AVL 的节点
@@ -114,11 +117,8 @@ public class AVLTree<K extends Comparable<K>, V> {
         // 更新 height 为左右子树中的最大高度值加 1
         node.height = getMaxChildHeight(node) + 1;
 
-        // 判断平衡因子
-        int absBalanceFactor = getAbsBalanceFactor(node);
-        if (absBalanceFactor > 1) {
-            System.out.println("unbalanced: " + absBalanceFactor);
-        }
+        // 进行平衡维护
+        node = doBalance(node);
 
         // 返回当前根节点
         return node;
@@ -139,6 +139,62 @@ public class AVLTree<K extends Comparable<K>, V> {
 
         // 修改 Node 的 value
         node.value = value;
+    }
+
+    // 判断该二叉树是否是一棵二分搜索树
+    public boolean isBST() {
+
+        // 中序遍历当前树, 求出所有元素的 key, 如果所有 key 都是顺序的, 则说明当前树是二分搜索树, 否则不是二分搜索树
+        List<K> keys = new ArrayList<>();
+        inOrder(root, keys);
+        for (int i = 1; i < keys.size(); i++) {
+            if (keys.get(i - 1).compareTo(keys.get(i)) < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void inOrder(Node node, List<K> keys) {
+        if (node == null) {
+            return;
+        }
+        inOrder(node.left, keys);
+        keys.add(node.key);
+        inOrder(node.right, keys);
+    }
+
+    // 判断该二叉树是否是一棵平衡二叉树
+    public boolean isBalancedTree() {
+        return isBalancedTree(root);
+    }
+
+    // 判断以 node 为根的二叉树是否是一棵平衡二叉树
+    private boolean isBalancedTree(Node node) {
+
+        // 递归终止
+        // 节点为 null, 满足平衡二叉树条件
+        if (node == null) {
+            return true;
+        }
+
+        // 递归终止
+        // 平衡因子绝对值大于 1, 不满足平衡二叉树条件
+        if (getAbsBalanceFactor(node) > 1) {
+            return false;
+        }
+
+        // 否则说明当前节点满足平衡二叉树条件, 需要判断其子节点是否也满足平衡二叉树条件
+
+        // 递归调用
+        // 求出以 node 的左孩子为根的二叉树是否是一棵平衡二叉树
+        // 求出以 node 的右孩子为根的二叉树是否是一棵平衡二叉树
+        boolean leftChildBalanced = isBalancedTree(node.left);
+        boolean rightChildBalanced = isBalancedTree(node.right);
+
+        // 当 node 的左右孩子都为平衡二叉树时, 以 node 为根的二叉树才是一棵平衡二叉树
+        // 当 node 的左右孩子有一个不是平衡二叉树时, 以 node 为根的二叉树就不是一棵平衡二叉树
+        return leftChildBalanced && rightChildBalanced;
     }
 
     // 获取 key 对应的 Node
@@ -207,6 +263,103 @@ public class AVLTree<K extends Comparable<K>, V> {
     // 获得节点 node 的平衡因子的绝对值
     private int getAbsBalanceFactor(Node node) {
         return Math.abs(getBalanceFactor(node));
+    }
+
+    // 对节点 y 进行向右旋转操作, 返回旋转后新的根节点 x
+    //        y
+    //       / \
+    //      x  T4   向右旋转 (y)           x
+    //     / \     - - - - - - - ->     /  \
+    //    z  T3                        z    y
+    //   / \                          / \  / \
+    //  T1 T2                        T1 T2 T3 T4
+    private Node rightRotate(Node y) {
+
+        Node x = y.left;
+        Node T3 = x.right;
+
+        // 向右旋转
+        x.right = y;
+        y.left = T3;
+
+        // 更新 height
+        y.height = getMaxChildHeight(y) + 1;
+        x.height = getMaxChildHeight(x) + 1;
+
+        return x;
+    }
+
+    // 对节点 y 进行向左旋转操作, 返回旋转后新的根节点 x
+    //    y
+    //   / \
+    //  T1  x        向左旋转 (y)          x
+    //     / \     - - - - - - - ->     /  \
+    //    T2  z                        y    z
+    //       / \                      / \  / \
+    //      T3 T4                    T1 T2 T3 T4
+    private Node leftRotate(Node y) {
+
+        Node x = y.right;
+        Node T2 = x.left;
+
+        // 向左旋转
+        x.left = y;
+        y.right = T2;
+
+        // 更新 height
+        y.height = getMaxChildHeight(y) + 1;
+        x.height = getMaxChildHeight(x) + 1;
+
+        return x;
+    }
+
+    // 平衡维护: 调整以 node 为根的二叉树的结构, 以满足平衡二叉树性质
+    private Node doBalance(Node node) {
+
+        // 获取 node 的平衡因子
+        int balanceFactor = getBalanceFactor(node);
+
+        // 以当前 node 为根的树有以下几种不同的情况:
+
+        // LL
+        // 左子树比右子树高, 且左孩子的左子树比右子树高, 即当前 node 的左孩子的左孩子导致树不平衡
+        if (balanceFactor > 1 && getBalanceFactor(node.left) >= 0) {
+
+            // 对 node 进行右旋转
+            node = rightRotate(node);
+        }
+
+        // RR
+        // 右子树比左子树高, 且右孩子的右子树比左子树高, 即当前 node 的右孩子的右孩子导致树不平衡
+        if (balanceFactor < -1 && getBalanceFactor(node.right) <= 0) {
+
+            // 对 node 进行左旋转
+            node = leftRotate(node);
+        }
+
+        // LR
+        // 左子树比右子树高, 且左孩子的右子树比左子树高, 即当前 node 的左孩子的右孩子导致树不平衡
+        if (balanceFactor > 1 && getBalanceFactor(node.left) < 0) {
+
+            // 对 node 的左孩子进行左旋转
+            node.left = leftRotate(node.left);
+
+            // 对 node 进行右旋转
+            node = rightRotate(node);
+        }
+
+        // RL
+        // 右子树比左子树高, 且右孩子的左子树比右子树高, 即当前 node 的右孩子的左孩子导致树不平衡
+        if (balanceFactor < -1 && getBalanceFactor(node.right) > 0) {
+
+            // 对 node 的右孩子进行右旋转
+            node.right = rightRotate(node.right);
+
+            // 对 node 进行左旋转
+            node = leftRotate(node);
+        }
+
+        return node;
     }
 
 }

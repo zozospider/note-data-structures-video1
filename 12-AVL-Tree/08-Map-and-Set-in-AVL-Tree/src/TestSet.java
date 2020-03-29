@@ -1,15 +1,22 @@
 import java.util.List;
 
-public class Test {
+public class TestSet {
 
     public static void main(String[] args) {
 
-        // 随机生成 100 万个整数, 每个整数最大值 1000
-        int count = 1_000_000;
-        int max = 1000;
+        // 随机生成 10 万个整数, 每个整数最大值 1000 (不同的测试参数对结果会有影响)
+        int count = 100_000;
+        int max = 1_000;
 
         List<Integer> numbers = GeneralUtils.randomNumbers(count, max);
         System.out.println("Total numbers: " + numbers.size());
+
+        Set<Integer> avlSet = new AVLTreeSet<>();
+        long avlTime = testSet(avlSet, numbers);
+        System.out.println("Total different numbers: " + avlSet.getSize());
+        System.out.println("AVLTreeSet time: " + avlTime + "ms");
+
+        System.out.println("------");
 
         // 平均复杂度:
         // O(h) = O(log n)
@@ -37,6 +44,14 @@ public class Test {
 
         for (Integer number : numbers) {
             set.add(number);
+        }
+
+        for (Integer number : numbers) {
+            set.contains(number);
+        }
+
+        for (Integer number : numbers) {
+            set.remove(number);
         }
 
         // 记录结束时间 (单位: 毫秒)

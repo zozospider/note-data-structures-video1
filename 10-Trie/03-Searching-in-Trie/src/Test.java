@@ -7,10 +7,10 @@ public class Test {
 
         // 随机生成 40 万个单词, 每个单词 1 至 5 个小写字母
         List<String> words = new ArrayList<>();
-        List<String> words1 = GeneralUtils.randomWords(1, 100_000);
-        List<String> words2 = GeneralUtils.randomWords(2, 100_000);
-        List<String> words3 = GeneralUtils.randomWords(3, 100_000);
-        List<String> words4 = GeneralUtils.randomWords(5, 100_000);
+        List<String> words1 = GeneralUtils.randomWords(100_000, 1);
+        List<String> words2 = GeneralUtils.randomWords(100_000, 2);
+        List<String> words3 = GeneralUtils.randomWords(100_000, 3);
+        List<String> words4 = GeneralUtils.randomWords(100_000, 5);
         words.addAll(words1);
         words.addAll(words2);
         words.addAll(words3);
@@ -25,6 +25,8 @@ public class Test {
         long bstTime = testSet(bstSet, words);
         System.out.println("Total different words: " + bstSet.getSize());
         System.out.println("BSTSet words: " + bstTime + "ms");
+
+        System.out.println("------");
 
         // 时间复杂度 (此处忽略 Trie 内部使用的 TreeMap 的时间复杂度):
         // add: O(m)

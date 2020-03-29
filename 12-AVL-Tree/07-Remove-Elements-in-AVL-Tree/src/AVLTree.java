@@ -117,11 +117,8 @@ public class AVLTree<K extends Comparable<K>, V> {
         // 更新 height 为左右子树中的最大高度值加 1
         node.height = getMaxChildHeight(node) + 1;
 
-        // 进行平衡维护
-        node = doBalance(node);
-
-        // 返回当前根节点
-        return node;
+        // 返回当前根节点 (进行平衡维护)
+        return doBalance(node);
     }
 
     // 修改 AVL 中 key 对应的 value
@@ -240,7 +237,7 @@ public class AVLTree<K extends Comparable<K>, V> {
         List<K> keys = new ArrayList<>();
         inOrder(root, keys);
         for (int i = 1; i < keys.size(); i++) {
-            if (keys.get(i - 1).compareTo(keys.get(i)) < 0) {
+            if (keys.get(i - 1).compareTo(keys.get(i)) > 0) {
                 return false;
             }
         }
@@ -405,7 +402,7 @@ public class AVLTree<K extends Comparable<K>, V> {
         return x;
     }
 
-    // 平衡维护: 调整以 node 为根的二叉树的结构, 以满足平衡二叉树性质
+    // 平衡维护: 调整以 node 为根的二叉树的结构, 以满足平衡二叉树性质, 返回调整后的平衡二叉树的根
     private Node doBalance(Node node) {
 
         // 获取 node 的平衡因子
@@ -418,7 +415,7 @@ public class AVLTree<K extends Comparable<K>, V> {
         if (balanceFactor > 1 && getBalanceFactor(node.left) >= 0) {
 
             // 对 node 进行右旋转
-            node = rightRotate(node);
+            return rightRotate(node);
         }
 
         // RR
@@ -426,7 +423,7 @@ public class AVLTree<K extends Comparable<K>, V> {
         if (balanceFactor < -1 && getBalanceFactor(node.right) <= 0) {
 
             // 对 node 进行左旋转
-            node = leftRotate(node);
+            return leftRotate(node);
         }
 
         // LR
@@ -437,7 +434,7 @@ public class AVLTree<K extends Comparable<K>, V> {
             node.left = leftRotate(node.left);
 
             // 对 node 进行右旋转
-            node = rightRotate(node);
+            return rightRotate(node);
         }
 
         // RL
@@ -448,9 +445,10 @@ public class AVLTree<K extends Comparable<K>, V> {
             node.right = rightRotate(node.right);
 
             // 对 node 进行左旋转
-            node = leftRotate(node);
+            return leftRotate(node);
         }
 
+        // 否则无需调整树结构, 返回 node
         return node;
     }
 

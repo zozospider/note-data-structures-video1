@@ -16,7 +16,7 @@ public class GeneralUtils {
     }
 
     // 随机生成 count 个数的单词, 其中每个单词 2 个字母
-    public static List<String> randomWords(int charNumber, int count) {
+    public static List<String> randomWords(int count, int charNumber) {
         List<String> words = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             StringBuilder builder = new StringBuilder();

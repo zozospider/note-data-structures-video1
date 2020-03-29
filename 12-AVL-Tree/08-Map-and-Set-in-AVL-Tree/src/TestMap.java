@@ -5,10 +5,10 @@ public class TestMap {
     public static void main(String[] args) {
 
         // 随机生成 10 万个单词, 每个单词 2 个小写字母 (不同的测试参数对结果会有影响)
-        int charNumber = 100_000;
-        int max = 100_000;
+        int count = 100_000;
+        int charNumber = 2;
 
-        List<String> words = GeneralUtils.randomWords(charNumber, max);
+        List<String> words = GeneralUtils.randomWords(count, charNumber);
         System.out.println("Total words: " + words.size());
 
         // 时间复杂度:

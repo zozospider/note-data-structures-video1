@@ -5,10 +5,10 @@ public class Test {
     public static void main(String[] args) {
 
         // 随机生成 100 万个单词, 每个单词 2 个小写字母
+        int count = 1_000_000;
         int charNumber = 2;
-        int max = 1_000_000;
 
-        List<String> words = GeneralUtils.randomWords(2, 1_000_000);
+        List<String> words = GeneralUtils.randomWords(count, charNumber);
         System.out.println("Total words: " + words.size());
 
         // 时间复杂度:

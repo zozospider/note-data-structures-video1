@@ -151,7 +151,7 @@ public class AVLTree<K extends Comparable<K>, V> {
         List<K> keys = new ArrayList<>();
         inOrder(root, keys);
         for (int i = 1; i < keys.size(); i++) {
-            if (keys.get(i - 1).compareTo(keys.get(i)) < 0) {
+            if (keys.get(i - 1).compareTo(keys.get(i)) > 0) {
                 return false;
             }
         }

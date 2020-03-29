@@ -15,7 +15,7 @@ public class GeneralUtils {
         return numbers;
     }
 
-    public static List<String> generalWords(int charNumber, int count) {
+    public static List<String> generalWords(int count, int charNumber) {
         List<String> words = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             StringBuilder builder = new StringBuilder();

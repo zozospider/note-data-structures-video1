@@ -5,7 +5,10 @@ public class Test {
     public static void main(String[] args) {
 
         // 随机生成 100 万个整数, 每个整数最大值 1000
-        List<Integer> numbers = GeneralUtils.randomNumbers(1_000_000, 1_000);
+        int count = 1_000_000;
+        int max = 1_000;
+
+        List<Integer> numbers = GeneralUtils.randomNumbers(count, max);
         Integer[] numberArray = numbers.toArray(new Integer[0]);
         System.out.println("Total numbers: " + numberArray.length);
 

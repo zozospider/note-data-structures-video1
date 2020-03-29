@@ -5,7 +5,10 @@ public class Main {
     public static void main(String[] args) {
 
         // 随机生成 100 万个单词, 每个单词 2 个小写字母
-        List<String> words = GeneralUtils.randomWords(2, 1_000_000);
+        int count = 10_000;
+        int charNumber = 2;
+
+        List<String> words = GeneralUtils.randomWords(count, charNumber);
         System.out.println("Total words: " + words.size());
 
         AVLTree<String, Integer> avlTree = new AVLTree<>();
@@ -18,6 +21,8 @@ public class Main {
             }
         }
 
+        System.out.println("is BST: " + avlTree.isBST());
+        System.out.println("is BalancedTree: " + avlTree.isBalancedTree());
     }
 
 }

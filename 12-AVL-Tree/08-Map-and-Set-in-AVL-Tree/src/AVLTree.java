@@ -408,6 +408,44 @@ public class AVLTree<K extends Comparable<K>, V> {
         // 获取 node 的平衡因子
         int balanceFactor = getBalanceFactor(node);
 
+        if (balanceFactor > 1) {
+            // L*: 当前节点左倾
+
+            if (getBalanceFactor(node.left) < 0) {
+                // LR: 当前节点左倾 & 当前节点的左孩子右倾
+                // LR -> LL: 对当前节点的左孩子进行左旋转
+                node.left = leftRotate(node.left);
+            }
+
+            // LL: 当前节点左倾 & 当前节点的左孩子左倾
+            // LL -> --: 对当前节点进行右旋转
+            return rightRotate(node);
+
+        } else if (balanceFactor < -1) {
+            // R*: 当前节点右倾
+
+            if (getBalanceFactor(node.right) > 0) {
+                // RL: 当前节点右倾 & 当前节点的右孩子左倾
+                // RL -> RR: 对当前节点的右孩子进行右旋转
+                node.right = rightRotate(node.right);
+            }
+
+            // RR: 当前节点右倾 & 当前节点的右孩子右倾
+            // RR -> --> 对当前节点进行左旋转
+            return leftRotate(node);
+
+        } else  {
+            // --: 当前节点平衡
+            return node;
+        }
+    }
+
+    // 平衡维护: 调整以 node 为根的二叉树的结构, 以满足平衡二叉树性质, 返回调整后的平衡二叉树的根
+    private Node doBalance2(Node node) {
+
+        // 获取 node 的平衡因子
+        int balanceFactor = getBalanceFactor(node);
+
         // 以当前 node 为根的树有以下几种不同的情况:
 
         // LL

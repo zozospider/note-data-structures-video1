@@ -4,8 +4,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // 随机生成 100 万个单词, 每个单词 2 个小写字母
-        int count = 10_000;
+        // 随机生成 10 万个单词, 每个单词 2 个小写字母
+        int count = 100_000;
         int charNumber = 2;
 
         List<String> words = GeneralUtils.randomWords(count, charNumber);

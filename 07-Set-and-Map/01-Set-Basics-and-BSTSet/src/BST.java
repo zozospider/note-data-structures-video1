@@ -526,24 +526,25 @@ public class BST<E extends Comparable<E>> {
             node.left = removeMax(node.left);
             return node;
              */
-        }
 
-        // 递归调用
-        if (e.compareTo(node.e) < 0) {
+        } else if (e.compareTo(node.e) < 0) {
 
             // 如果要删除的元素 e 小于当前节点的元素, 则从当前节点的左孩子 (子树) 中删除
+            // 递归调用
             // 以 node.left 为根节点, 删除元素 e, 将返回的根节点作为当前 node 的新的左孩子
             node.left = remove(node.left, e);
+            // 返回当前根节点
+            return node;
 
-        } else if (e.compareTo(node.e) > 0) {
+        } else { // e.compareTo(node.e) > 0
 
             // 如果要删除的元素 e 大于当前节点的元素, 则从当前节点的右孩子 (子树) 中删除
+            // 递归调用
             // 以 node.right 为根节点, 删除元素 e, 将返回的根节点作为当前 node 的新的右孩子
             node.right = remove(node.right, e);
+            // 返回当前根节点
+            return node;
         }
-
-        // 返回当前根节点
-        return node;
     }
 
     // 删除掉以 node 为根的二分搜索树中值为 e 的节点, 返回删除节点后新的二分搜索树的根

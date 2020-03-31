@@ -72,6 +72,79 @@ public class AVLTree<K extends Comparable<K>, V> {
         return node == null ? null : node.value;
     }
 
+    // 判断该二叉树是否是一棵二分搜索树
+    public boolean isBST() {
+
+        // 中序遍历当前树, 求出所有元素的 key, 如果所有 key 都是顺序的, 则说明当前树是二分搜索树, 否则不是二分搜索树
+        List<K> keys = new ArrayList<>();
+        inOrder(root, keys);
+        for (int i = 1; i < keys.size(); i++) {
+            if (keys.get(i - 1).compareTo(keys.get(i)) > 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void inOrder(Node node, List<K> keys) {
+        if (node == null) {
+            return;
+        }
+        inOrder(node.left, keys);
+        keys.add(node.key);
+        inOrder(node.right, keys);
+    }
+
+    // 判断该二叉树是否是一棵平衡二叉树
+    public boolean isBalancedTree() {
+        return isBalancedTree(root);
+    }
+
+    // 判断以 node 为根的二叉树是否是一棵平衡二叉树
+    private boolean isBalancedTree(Node node) {
+
+        // 递归终止
+        // 节点为 null, 满足平衡二叉树条件
+        if (node == null) {
+            return true;
+        }
+
+        // 递归终止
+        // 平衡因子绝对值大于 1, 不满足平衡二叉树条件
+        if (getAbsBalanceFactor(node) > 1) {
+            return false;
+        }
+
+        // 否则说明当前节点满足平衡二叉树条件, 需要判断其子节点是否也满足平衡二叉树条件
+
+        // 递归调用
+        // 求出以 node 的左孩子为根的二叉树是否是一棵平衡二叉树
+        // 求出以 node 的右孩子为根的二叉树是否是一棵平衡二叉树
+        boolean leftChildBalanced = isBalancedTree(node.left);
+        boolean rightChildBalanced = isBalancedTree(node.right);
+
+        // 当 node 的左右孩子都为平衡二叉树时, 以 node 为根的二叉树才是一棵平衡二叉树
+        // 当 node 的左右孩子有一个不是平衡二叉树时, 以 node 为根的二叉树就不是一棵平衡二叉树
+        return leftChildBalanced && rightChildBalanced;
+    }
+
+    // 修改 AVL 中 key 对应的 value
+    // 平均复杂度: O(h) = O(log n)
+    // 最差复杂度: O(n)
+    public void set(K key, V value) {
+
+        // 获取以 root 为根的二分搜索树中 key 对应的 Node
+        Node node = getNode(root, key);
+
+        // 如果 Node 为 null, 则无法修改, 抛出异常
+        if (node == null) {
+            throw new IllegalArgumentException(key + " does not exist!");
+        }
+
+        // 修改 Node 的 value
+        node.value = value;
+    }
+
     // 将元素 (key - value) 添加到 AVL 中 (向二分搜索树中添加元素 (key - value)) (如果 key 已存在, 则修改 key 对应的 value)
     // 平均复杂度: O(h) = O(log n)
     // 最差复杂度: O(n)
@@ -119,23 +192,6 @@ public class AVLTree<K extends Comparable<K>, V> {
 
         // 返回当前根节点 (进行平衡维护)
         return doBalance(node);
-    }
-
-    // 修改 AVL 中 key 对应的 value
-    // 平均复杂度: O(h) = O(log n)
-    // 最差复杂度: O(n)
-    public void set(K key, V value) {
-
-        // 获取以 root 为根的二分搜索树中 key 对应的 Node
-        Node node = getNode(root, key);
-
-        // 如果 Node 为 null, 则无法修改, 抛出异常
-        if (node == null) {
-            throw new IllegalArgumentException(key + " does not exist!");
-        }
-
-        // 修改 Node 的 value
-        node.value = value;
     }
 
     // 将 key 从 AVL 中删除 (从二分搜索树中删除元素为 (key - value) 的节点)
@@ -228,62 +284,6 @@ public class AVLTree<K extends Comparable<K>, V> {
 
         // 返回当前根节点 (进行平衡维护: 调整以 node 为根的二叉树的结构, 以满足平衡二叉树性质)
         return doBalance(node);
-    }
-
-    // 判断该二叉树是否是一棵二分搜索树
-    public boolean isBST() {
-
-        // 中序遍历当前树, 求出所有元素的 key, 如果所有 key 都是顺序的, 则说明当前树是二分搜索树, 否则不是二分搜索树
-        List<K> keys = new ArrayList<>();
-        inOrder(root, keys);
-        for (int i = 1; i < keys.size(); i++) {
-            if (keys.get(i - 1).compareTo(keys.get(i)) > 0) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private void inOrder(Node node, List<K> keys) {
-        if (node == null) {
-            return;
-        }
-        inOrder(node.left, keys);
-        keys.add(node.key);
-        inOrder(node.right, keys);
-    }
-
-    // 判断该二叉树是否是一棵平衡二叉树
-    public boolean isBalancedTree() {
-        return isBalancedTree(root);
-    }
-
-    // 判断以 node 为根的二叉树是否是一棵平衡二叉树
-    private boolean isBalancedTree(Node node) {
-
-        // 递归终止
-        // 节点为 null, 满足平衡二叉树条件
-        if (node == null) {
-            return true;
-        }
-
-        // 递归终止
-        // 平衡因子绝对值大于 1, 不满足平衡二叉树条件
-        if (getAbsBalanceFactor(node) > 1) {
-            return false;
-        }
-
-        // 否则说明当前节点满足平衡二叉树条件, 需要判断其子节点是否也满足平衡二叉树条件
-
-        // 递归调用
-        // 求出以 node 的左孩子为根的二叉树是否是一棵平衡二叉树
-        // 求出以 node 的右孩子为根的二叉树是否是一棵平衡二叉树
-        boolean leftChildBalanced = isBalancedTree(node.left);
-        boolean rightChildBalanced = isBalancedTree(node.right);
-
-        // 当 node 的左右孩子都为平衡二叉树时, 以 node 为根的二叉树才是一棵平衡二叉树
-        // 当 node 的左右孩子有一个不是平衡二叉树时, 以 node 为根的二叉树就不是一棵平衡二叉树
-        return leftChildBalanced && rightChildBalanced;
     }
 
     // 返回以 node 为根的二分搜索树的最小值所在的节点

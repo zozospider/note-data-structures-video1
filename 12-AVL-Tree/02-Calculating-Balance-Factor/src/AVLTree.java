@@ -69,6 +69,23 @@ public class AVLTree<K extends Comparable<K>, V> {
         return node == null ? null : node.value;
     }
 
+    // 修改 AVL 中 key 对应的 value
+    // 平均复杂度: O(h) = O(log n)
+    // 最差复杂度: O(n)
+    public void set(K key, V value) {
+
+        // 获取以 root 为根的二分搜索树中 key 对应的 Node
+        Node node = getNode(root, key);
+
+        // 如果 Node 为 null, 则无法修改, 抛出异常
+        if (node == null) {
+            throw new IllegalArgumentException(key + " does not exist!");
+        }
+
+        // 修改 Node 的 value
+        node.value = value;
+    }
+
     // 将元素 (key - value) 添加到 AVL 中 (向二分搜索树中添加元素 (key - value)) (如果 key 已存在, 则修改 key 对应的 value)
     // 平均复杂度: O(h) = O(log n)
     // 最差复杂度: O(n)
@@ -124,23 +141,6 @@ public class AVLTree<K extends Comparable<K>, V> {
         return node;
     }
 
-    // 修改 AVL 中 key 对应的 value
-    // 平均复杂度: O(h) = O(log n)
-    // 最差复杂度: O(n)
-    public void set(K key, V value) {
-
-        // 获取以 root 为根的二分搜索树中 key 对应的 Node
-        Node node = getNode(root, key);
-
-        // 如果 Node 为 null, 则无法修改, 抛出异常
-        if (node == null) {
-            throw new IllegalArgumentException(key + " does not exist!");
-        }
-
-        // 修改 Node 的 value
-        node.value = value;
-    }
-
     // 获取 key 对应的 Node
     // 返回以 node 为根节点的二分搜索树中, key 所在的节点
     private Node getNode(Node node, K key) {
@@ -171,29 +171,9 @@ public class AVLTree<K extends Comparable<K>, V> {
         }
     }
 
-    // 返回以 node 为根的二分搜索树的最小值所在的节点
-    private Node minimum(Node node) {
-
-        // 递归终止
-        if (node.left == null) {
-            return node;
-        }
-
-        // 递归调用
-        return minimum(node.left);
-    }
-
-    // 获得以节点 node 为根的树的高度
-    private int getHeight(Node node) {
-        if (node == null) {
-            return 0;
-        }
-        return node.height;
-    }
-
-    // 获得以节点 node 为根的树的左右子树中的最大高度
-    private int getMaxChildHeight(Node node) {
-        return Math.max(getHeight(node.left), getHeight(node.right));
+    // 获得节点 node 的平衡因子的绝对值
+    private int getAbsBalanceFactor(Node node) {
+        return Math.abs(getBalanceFactor(node));
     }
 
     // 获得节点 node 的平衡因子
@@ -204,9 +184,17 @@ public class AVLTree<K extends Comparable<K>, V> {
         return getHeight(node.left) - getHeight(node.right);
     }
 
-    // 获得节点 node 的平衡因子的绝对值
-    private int getAbsBalanceFactor(Node node) {
-        return Math.abs(getBalanceFactor(node));
+    // 获得以节点 node 为根的树的左右子树中的最大高度
+    private int getMaxChildHeight(Node node) {
+        return Math.max(getHeight(node.left), getHeight(node.right));
+    }
+
+    // 获得以节点 node 为根的树的高度
+    private int getHeight(Node node) {
+        if (node == null) {
+            return 0;
+        }
+        return node.height;
     }
 
 }

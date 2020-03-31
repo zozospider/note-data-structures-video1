@@ -23,6 +23,12 @@ public class Main {
 
         System.out.println("is BST: " + avlTree.isBST());
         System.out.println("is BalancedTree: " + avlTree.isBalancedTree());
+
+        for (String word : words) {
+            avlTree.remove(word);
+        }
+
+        System.out.println("is empty: " + avlTree.isEmpty());
     }
 
 }

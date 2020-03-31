@@ -72,6 +72,23 @@ public class AVLTree<K extends Comparable<K>, V> {
         return node == null ? null : node.value;
     }
 
+    // 修改 AVL 中 key 对应的 value
+    // 平均复杂度: O(h) = O(log n)
+    // 最差复杂度: O(n)
+    public void set(K key, V value) {
+
+        // 获取以 root 为根的二分搜索树中 key 对应的 Node
+        Node node = getNode(root, key);
+
+        // 如果 Node 为 null, 则无法修改, 抛出异常
+        if (node == null) {
+            throw new IllegalArgumentException(key + " does not exist!");
+        }
+
+        // 修改 Node 的 value
+        node.value = value;
+    }
+
     // 将元素 (key - value) 添加到 AVL 中 (向二分搜索树中添加元素 (key - value)) (如果 key 已存在, 则修改 key 对应的 value)
     // 平均复杂度: O(h) = O(log n)
     // 最差复杂度: O(n)
@@ -119,23 +136,6 @@ public class AVLTree<K extends Comparable<K>, V> {
 
         // 返回当前根节点 (进行平衡维护)
         return doBalance(node);
-    }
-
-    // 修改 AVL 中 key 对应的 value
-    // 平均复杂度: O(h) = O(log n)
-    // 最差复杂度: O(n)
-    public void set(K key, V value) {
-
-        // 获取以 root 为根的二分搜索树中 key 对应的 Node
-        Node node = getNode(root, key);
-
-        // 如果 Node 为 null, 则无法修改, 抛出异常
-        if (node == null) {
-            throw new IllegalArgumentException(key + " does not exist!");
-        }
-
-        // 修改 Node 的 value
-        node.value = value;
     }
 
     // 判断该二叉树是否是一棵二分搜索树
@@ -224,42 +224,33 @@ public class AVLTree<K extends Comparable<K>, V> {
         }
     }
 
-    // 返回以 node 为根的二分搜索树的最小值所在的节点
-    private Node minimum(Node node) {
+    // 平衡维护: 调整以 node 为根的二叉树的结构, 以满足平衡二叉树性质, 返回调整后的平衡二叉树的根
+    private Node doBalance(Node node) {
 
-        // 递归终止
-        if (node.left == null) {
-            return node;
+        // 获取 node 的平衡因子
+        int balanceFactor = getBalanceFactor(node);
+
+        // 以当前 node 为根的树有以下几种不同的情况:
+
+        // LL
+        // 左子树比右子树高, 且左孩子的左子树比右子树高, 即当前 node 的左孩子的左孩子导致树不平衡
+        if (balanceFactor > 1 && getBalanceFactor(node.left) <= 0) {
+
+            // 对 node 进行右旋转
+            return rightRotate(node);
         }
 
-        // 递归调用
-        return minimum(node.left);
-    }
+        // RR
+        // 右子树比左子树高, 且右孩子的右子树比左子树高, 即当前 node 的右孩子的右孩子导致树不平衡
+        if (balanceFactor < -1 && getBalanceFactor(node.right) <= 0) {
 
-    // 获得以节点 node 为根的树的高度
-    private int getHeight(Node node) {
-        if (node == null) {
-            return 0;
+            // 对 node 进行左旋转
+            return leftRotate(node);
         }
-        return node.height;
-    }
 
-    // 获得以节点 node 为根的树的左右子树中的最大高度
-    private int getMaxChildHeight(Node node) {
-        return Math.max(getHeight(node.left), getHeight(node.right));
-    }
+        // ...
 
-    // 获得节点 node 的平衡因子
-    private int getBalanceFactor(Node node) {
-        if (node == null) {
-            return 0;
-        }
-        return getHeight(node.left) - getHeight(node.right);
-    }
-
-    // 获得节点 node 的平衡因子的绝对值
-    private int getAbsBalanceFactor(Node node) {
-        return Math.abs(getBalanceFactor(node));
+        return node;
     }
 
     // 对节点 y 进行向右旋转操作, 返回旋转后新的根节点 x
@@ -310,33 +301,30 @@ public class AVLTree<K extends Comparable<K>, V> {
         return x;
     }
 
-    // 平衡维护: 调整以 node 为根的二叉树的结构, 以满足平衡二叉树性质, 返回调整后的平衡二叉树的根
-    private Node doBalance(Node node) {
+    // 获得节点 node 的平衡因子的绝对值
+    private int getAbsBalanceFactor(Node node) {
+        return Math.abs(getBalanceFactor(node));
+    }
 
-        // 获取 node 的平衡因子
-        int balanceFactor = getBalanceFactor(node);
-
-        // 以当前 node 为根的树有以下几种不同的情况:
-
-        // LL
-        // 左子树比右子树高, 且左孩子的左子树比右子树高, 即当前 node 的左孩子的左孩子导致树不平衡
-        if (balanceFactor > 1 && getBalanceFactor(node.left) <= 0) {
-
-            // 对 node 进行右旋转
-            return rightRotate(node);
+    // 获得节点 node 的平衡因子
+    private int getBalanceFactor(Node node) {
+        if (node == null) {
+            return 0;
         }
+        return getHeight(node.left) - getHeight(node.right);
+    }
 
-        // RR
-        // 右子树比左子树高, 且右孩子的右子树比左子树高, 即当前 node 的右孩子的右孩子导致树不平衡
-        if (balanceFactor < -1 && getBalanceFactor(node.right) <= 0) {
+    // 获得以节点 node 为根的树的左右子树中的最大高度
+    private int getMaxChildHeight(Node node) {
+        return Math.max(getHeight(node.left), getHeight(node.right));
+    }
 
-            // 对 node 进行左旋转
-            return leftRotate(node);
+    // 获得以节点 node 为根的树的高度
+    private int getHeight(Node node) {
+        if (node == null) {
+            return 0;
         }
-
-        // ...
-
-        return node;
+        return node.height;
     }
 
 }

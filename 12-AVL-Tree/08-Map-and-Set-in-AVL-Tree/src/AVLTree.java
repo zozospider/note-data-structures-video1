@@ -266,24 +266,25 @@ public class AVLTree<K extends Comparable<K>, V> {
 
             // 返回删除节点后新的二分搜索树的根 (进行平衡维护: 调整以 successor 为根的二叉树的结构, 以满足平衡二叉树性质)
             return doBalance(successor);
-        }
 
-        // 递归调用
-        if (key.compareTo(node.key) < 0) {
+        } else if (key.compareTo(node.key) < 0) {
 
             // 如果要删除的元素 key 小于当前节点的元素, 则从当前节点的左孩子 (子树) 中删除
+            // 递归调用
             // 以 node.left 为根节点, 删除元素 key, 将返回的根节点作为当前 node 的新的左孩子
             node.left = remove(node.left, key);
+            // 返回当前根节点 (进行平衡维护: 调整以 node 为根的二叉树的结构, 以满足平衡二叉树性质)
+            return doBalance(node);
 
-        } else if (key.compareTo(node.key) > 0) {
+        } else { // key.compareTo(node.key) > 0
 
             // 如果要删除的元素 key 大于当前节点的元素, 则从当前节点的右孩子 (子树) 中删除
+            // 递归调用
             // 以 node.right 为根节点, 删除元素 key, 将返回的根节点作为当前 node 的新的右孩子
             node.right = remove(node.right, key);
+            // 返回当前根节点 (进行平衡维护: 调整以 node 为根的二叉树的结构, 以满足平衡二叉树性质)
+            return doBalance(node);
         }
-
-        // 返回当前根节点 (进行平衡维护: 调整以 node 为根的二叉树的结构, 以满足平衡二叉树性质)
-        return doBalance(node);
     }
 
     // 返回以 node 为根的二分搜索树的最小值所在的节点

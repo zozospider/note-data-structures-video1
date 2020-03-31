@@ -358,7 +358,7 @@ public class AVLTree<K extends Comparable<K>, V> {
             }
 
             // RR: 当前节点右倾 & 当前节点的右孩子右倾
-            // RR -> --> 对当前节点进行左旋转
+            // RR -> --: 对当前节点进行左旋转
             return leftRotate(node);
 
         } else  {

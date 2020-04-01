@@ -91,6 +91,8 @@ public class RBTree<K extends Comparable<K>, V> {
         root.color = BLACK;
     }
 
+    // TODO: 上 PPT
+
     // 以下为 add(Node node, K key, V value) 方法添加一个节点, 23树和红黑树在多种不同的情况下的结构变化和对应的代码处理如下:
     // [] 表示23树中的节点, 其中三节点中的两个元素用 `,` 分割, 如 [10,20]
     // () 表示红黑树中的黑色节点, 如 (20)

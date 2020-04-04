@@ -56,6 +56,57 @@ public class HashTable<K, V> {
         return map.get(key);
     }
 
+    // 修改哈希表中 key 对应的 value
+    public void set(K key, V value) {
+
+        // 计算 key 在哈希表中对应的数组的索引值, 并获取数组中该索引的 map 对象
+        int index = hash(key);
+        Map<K, V> map = maps[index];
+
+        // 如果 key 不存在, 则抛出异常
+        if (!map.containsKey(key)) {
+            throw new IllegalArgumentException(key + " does not exist!");
+        }
+
+        // 执行修改
+        map.put(key, value);
+    }
+
+    // 将元素 (key - value) 添加到哈希表中 (如果 key 已存在, 则修改 key 对应的 value)
+    public void add(K key, V value) {
+
+        // 计算 key 在哈希表中对应的数组的索引值, 并获取数组中该索引的 map 对象
+        int index = hash(key);
+        Map<K, V> map = maps[index];
+
+        // 如果 key 存在, 则修改 key 对应的 value
+        // 如果 key 不存在, 则增加 key, value, 并增加 size 值
+        if (map.containsKey(key)) {
+            map.put(key, value);
+        } else {
+            map.put(key, value);
+            size++;
+        }
+    }
+
+    // 将 key 从哈希表中删除
+    public V remove(K key) {
+
+        // 计算 key 在哈希表中对应的数组的索引值, 并获取数组中该索引的 map 对象
+        int index = hash(key);
+        Map<K, V> map = maps[index];
+
+        // 如果 key 不存在, 则返回 null
+        if (!map.containsKey(key)) {
+            return null;
+        }
+
+        // 如果 key 不存在, 则从 map 中移除 key, 减少 size 值, 返回移除的 value
+        V value = map.remove(key);
+        size--;
+        return value;
+    }
+
     // 通过一个元素的 key 计算出该元素在哈希表中对应的数组的索引值
     private int hash(K key) {
 

@@ -72,6 +72,23 @@ public class LinkedListMap<K, V> implements Map<K, V> {
         return node == null ? null : node.value;
     }
 
+    // 修改映射中 key 对应的 value
+    // 时间复杂度: O(n)
+    @Override
+    public void set(K key, V value) {
+
+        // 获取 key 对应的 Node
+        Node node = getNode(key);
+
+        // 如果 Node 为 null, 则无法修改, 抛出异常
+        if (node == null) {
+            throw new IllegalArgumentException(key + " does not exist!");
+        }
+
+        // 修改 Node 的 value
+        node.value = value;
+    }
+
     // 将元素 (key - value) 添加到映射中 (如果 key 已存在, 则修改 key 对应的 value)
     // 时间复杂度: O(n)
     @Override
@@ -88,23 +105,6 @@ public class LinkedListMap<K, V> implements Map<K, V> {
         } else {
             node.value = value;
         }
-    }
-
-    // 修改映射中 key 对应的 value
-    // 时间复杂度: O(n)
-    @Override
-    public void set(K key, V value) {
-
-        // 获取 key 对应的 Node
-        Node node = getNode(key);
-
-        // 如果 Node 为 null, 则无法修改, 抛出异常
-        if (node == null) {
-            throw new IllegalArgumentException(key + " does not exist!");
-        }
-
-        // 修改 Node 的 value
-        node.value = value;
     }
 
     // 将 key 从映射中删除

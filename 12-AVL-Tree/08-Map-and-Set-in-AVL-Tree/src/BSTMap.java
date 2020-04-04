@@ -69,6 +69,24 @@ public class BSTMap<K extends Comparable<K>, V> implements Map<K, V> {
         return node == null ? null : node.value;
     }
 
+    // 修改映射中 key 对应的 value
+    // 平均复杂度: O(h) = O(log n)
+    // 最差复杂度: O(n)
+    @Override
+    public void set(K key, V value) {
+
+        // 获取以 root 为根的二分搜索树中 key 对应的 Node
+        Node node = getNode(root, key);
+
+        // 如果 Node 为 null, 则无法修改, 抛出异常
+        if (node == null) {
+            throw new IllegalArgumentException(key + " does not exist!");
+        }
+
+        // 修改 Node 的 value
+        node.value = value;
+    }
+
     // 将元素 (key - value) 添加到映射中 (向二分搜索树中添加元素 (key - value)) (如果 key 已存在, 则修改 key 对应的 value)
     // 平均复杂度: O(h) = O(log n)
     // 最差复杂度: O(n)
@@ -114,24 +132,6 @@ public class BSTMap<K extends Comparable<K>, V> implements Map<K, V> {
 
         // 返回当前根节点
         return node;
-    }
-
-    // 修改映射中 key 对应的 value
-    // 平均复杂度: O(h) = O(log n)
-    // 最差复杂度: O(n)
-    @Override
-    public void set(K key, V value) {
-
-        // 获取以 root 为根的二分搜索树中 key 对应的 Node
-        Node node = getNode(root, key);
-
-        // 如果 Node 为 null, 则无法修改, 抛出异常
-        if (node == null) {
-            throw new IllegalArgumentException(key + " does not exist!");
-        }
-
-        // 修改 Node 的 value
-        node.value = value;
     }
 
     // 将 key 从映射中删除 (从二分搜索树中删除元素为 (key - value) 的节点)

@@ -28,13 +28,13 @@ public class AVLTreeMap<K extends Comparable<K>, V> implements Map<K, V> {
     }
 
     @Override
-    public void add(K key, V value) {
-        avlTree.add(key, value);
+    public void set(K key, V value) {
+        avlTree.set(key, value);
     }
 
     @Override
-    public void set(K key, V value) {
-        avlTree.set(key, value);
+    public void add(K key, V value) {
+        avlTree.add(key, value);
     }
 
     @Override

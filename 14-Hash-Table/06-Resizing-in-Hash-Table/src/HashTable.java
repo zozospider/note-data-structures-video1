@@ -130,20 +130,6 @@ public class HashTable<K extends Comparable<K>, V> {
         return value;
     }
 
-    // 通过一个元素的 key 计算出该元素在长度为 M 的数组中的索引值
-    private int hash(K key, int M) {
-
-        // Integer.MAX_VALUE = 2147483647 = 0b1111111111111111111111111111111 = 0x7fffffff
-        // key 的 hashCode 值和 Integer.MAX_VALUE 进行按位与运算, 确保为正数
-        // 然后对 M 取模, 计算出的结果就是在数组中的索引值
-        return (key.hashCode() & 0x7fffffff) % M;
-    }
-
-    // 通过一个元素的 key 计算出该元素在当前哈希表中的数组的索引值
-    private int hash(K key) {
-        return hash(key, maps.length);
-    }
-
     // 将 maps 数组的容量变成 newCapacity 大小
     private void resize(int newCapacity) {
 
@@ -171,6 +157,20 @@ public class HashTable<K extends Comparable<K>, V> {
 
         // 将原 maps 数组指向该 newMaps, 即表示 maps 转换成功 (newMaps 为栈内存变量, 会自动回收)
         maps = newMaps;
+    }
+
+    // 通过一个元素的 key 计算出该元素在长度为 M 的数组中的索引值
+    private int hash(K key, int M) {
+
+        // Integer.MAX_VALUE = 2147483647 = 0b1111111111111111111111111111111 = 0x7fffffff
+        // key 的 hashCode 值和 Integer.MAX_VALUE 进行按位与运算, 确保为正数
+        // 然后对 M 取模, 计算出的结果就是在数组中的索引值
+        return (key.hashCode() & 0x7fffffff) % M;
+    }
+
+    // 通过一个元素的 key 计算出该元素在当前哈希表中的数组的索引值
+    private int hash(K key) {
+        return hash(key, maps.length);
     }
 
 }

@@ -102,9 +102,9 @@ public class HashTable<K extends Comparable<K>, V> {
             size++;
 
             // 如果哈希表中的元素个数大于等于 (数组长度 * 上界), 说明平均每个 map 存储的元素个数超过了上届, 将数组的容量扩容为下一个素数的大小
-            // 增加 ((capacityIndex + 1) < CAPACITY.length) 的条件判断用于防止超出 CAPACITY 定义的最大素数范围 (数组越界)
+            // 增加 (capacityIndex < (CAPACITY.length - 1)) 的条件判断用于防止超出 CAPACITY 定义的最大素数范围 (数组越界)
             if (size >= UPPER_TOLERANCE * maps.length
-                    && (capacityIndex + 1) < CAPACITY.length) {
+                    && capacityIndex < (CAPACITY.length - 1)) {
 
                 resize(CAPACITY[++capacityIndex]);
             }
@@ -128,28 +128,14 @@ public class HashTable<K extends Comparable<K>, V> {
         size--;
 
         // 如果哈希表中的元素个数小于 (数组长度 * 下界), 说明平均每个 map 存储的元素个数小于了下届, 将数组的容量缩容为原来的 1/2
-        // 增加 ((capacityIndex - 1) >= 0) 的条件判断用于防止超出 CAPACITY 定义的最小素数范围 (数组越界)
+        // 增加 (capacityIndex >= 1) 的条件判断用于防止超出 CAPACITY 定义的最小素数范围 (数组越界)
         if (size < LOWER_TOLERANCE * maps.length
-                && (capacityIndex - 1) >= 0) {
+                && capacityIndex >= 1) {
 
             resize(CAPACITY[--capacityIndex]);
         }
 
         return value;
-    }
-
-    // 通过一个元素的 key 计算出该元素在长度为 M 的数组中的索引值
-    private int hash(K key, int M) {
-
-        // Integer.MAX_VALUE = 2147483647 = 0b1111111111111111111111111111111 = 0x7fffffff
-        // key 的 hashCode 值和 Integer.MAX_VALUE 进行按位与运算, 确保为正数
-        // 然后对 M 取模, 计算出的结果就是在数组中的索引值
-        return (key.hashCode() & 0x7fffffff) % M;
-    }
-
-    // 通过一个元素的 key 计算出该元素在当前哈希表中的数组的索引值
-    private int hash(K key) {
-        return hash(key, maps.length);
     }
 
     // 将 maps 数组的容量变成 newCapacity 大小
@@ -179,6 +165,20 @@ public class HashTable<K extends Comparable<K>, V> {
 
         // 将原 maps 数组指向该 newMaps, 即表示 maps 转换成功 (newMaps 为栈内存变量, 会自动回收)
         maps = newMaps;
+    }
+
+    // 通过一个元素的 key 计算出该元素在长度为 M 的数组中的索引值
+    private int hash(K key, int M) {
+
+        // Integer.MAX_VALUE = 2147483647 = 0b1111111111111111111111111111111 = 0x7fffffff
+        // key 的 hashCode 值和 Integer.MAX_VALUE 进行按位与运算, 确保为正数
+        // 然后对 M 取模, 计算出的结果就是在数组中的索引值
+        return (key.hashCode() & 0x7fffffff) % M;
+    }
+
+    // 通过一个元素的 key 计算出该元素在当前哈希表中的数组的索引值
+    private int hash(K key) {
+        return hash(key, maps.length);
     }
 
 }

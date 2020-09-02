@@ -204,13 +204,6 @@ public class LinkedList<E> {
             prev = prev.next;
         }
 
-        // 1. 创建数据为 e 的节点
-        // Node node = new Node(e);
-        // 2. 设置当前创建的节点的下一个节点的引用为 prev Node (index 前一个节点的引用) 的下一个节点的引用 prev.next Node
-        // node.next = prev.next;
-        // 3. 将 prev.next 的头部节点的引用设置为当前创建的节点, 即表示当前创建的节点为 prev Node 的下一个节点
-        // prev.next = node;
-
         // 1. 获取要删除节点 (要删除节点的前一个节点的下一个节点)
         Node remove = prev.next;
         // 2. 将要删除节点的前一个节点的下一个节点的引用修改为要删除节点的下一个节点, 即跳过了要删除节点

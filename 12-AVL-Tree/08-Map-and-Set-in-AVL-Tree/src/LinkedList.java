@@ -93,8 +93,8 @@ public class LinkedList<E> {
     // 注: 因链表本身的结构特性不适合在随机位置修改, 此方法在链表中不是一个常用的操作, 练习用
     public void set(int index, E e) {
 
-        // 如果要设置的索引位置小于 0, 或者大于当前 size 索引位置 (即所有元素最后位置之后), 则认为是非法操作, 抛出异常
-        if (index < 0 || index > size) {
+        // 如果要设置的索引位置小于 0, 或者大于等于当前 size 索引位置 (即所有元素最后位置), 则认为是非法操作, 抛出异常
+        if (index < 0 || index >= size) {
             throw new IllegalArgumentException("Set failed. Index is illegal.");
         }
 
